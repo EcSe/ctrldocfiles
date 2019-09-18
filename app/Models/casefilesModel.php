@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class casefilesModel extends Model
 {
     protected $table = 'tb_casefiles';
+    public $incrementing = true;
     public $timestamps = false;
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -19,8 +20,23 @@ class casefilesModel extends Model
         return $this->hasOne('App\Models\clientModel', 'id', 'id_client');
     }
 
+    public function id_type()
+    {
+        return $this->hasOne('App\Models\casefilesTypeModel', 'id', 'id_type');
+    }
+
+    public function casefile_state()
+    {
+        return $this->hasOne('App\Models\casefilesStateModel','id','casefile_state');
+    }
+
     public function start_user_id()
     {
-        return $this->hasOne('App\Models\userModel','id','start_user_id');
+        return $this->hasOne('App\Models\userModel', 'id', 'start_user_id');
+    }
+
+    public function finish_user_id()
+    {
+        return $this->hasOne('App\Models\userModel', 'id', 'finish_user_id');
     }
 }

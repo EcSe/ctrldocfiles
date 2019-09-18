@@ -96,10 +96,10 @@ let back = () => {
 
 //#region Eventos
 document.addEventListener('DOMContentLoaded', () => {
+    cargarCampos();
     listClient();
     listDocumentState();
     listDocumentType();
-    cargarCampos();
 });
 
 frmUpdate.addEventListener('submit', (e) => {

@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class casefileDocumentModel extends Model
+class casefilesDocumentModel extends Model
 {
     protected $table = 'tb_casefiles_document';
+    public $incrementing = true;
     public $timestamps = false;
     protected $primaryKey = 'id';
     protected $fillable = [

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class mainDocumentModel extends Model
 {
     protected $table = 'tb_main_document';
+    public $incrementing = true;
     public $timestamps = false;
     protected $primaryKey = 'id';
     protected $fillable = [

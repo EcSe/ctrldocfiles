@@ -1,26 +1,49 @@
 let tbody = document.getElementById('tbody');
 
-let listUser = () => {
+let listUser = (ruta) => {
+    let rutafetch;
+    ruta ? rutafetch = ruta : rutafetch = '/userPaginate';
+    // let cantidadUsers;
+    // cant ? cantidadUsers = cant : cantidadUsers = 10;
     let init = {
-        method: "GET",
+        method: "get",
         mode: 'cors',
     }
-    fetch('/user', init).then(res => res.json()).then(data => {
-        for (let i = 0; i < data.length; i++) {
+    fetch(rutafetch, init).then(res => res.json()).then(data => {
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+        for (let i = 0; i < data.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data[i].code}</td>`);
-            fila.innerHTML += (`<td>${data[i].name}</td>`);
-            fila.innerHTML += (`<td>${data[i].email}</td>`);
-            fila.innerHTML += (`<td>${data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data[i].account_state.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].name}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].email}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].account_state.description}</td>`);
+            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
-
             tbody.appendChild(fila);
         }
-    })
+        //Paginacion
+        let from = document.getElementById('from');
+        from.innerHTML = data.from;
+        let to = document.getElementById('to');
+        to.innerHTML = data.to;
+        let total = document.getElementById('total');
+        total.innerHTML = data.total;
+        let currentPage = document.getElementById('currentPage');
+        currentPage.innerHTML = data.current_page;
+        let hPrev = document.getElementById('hPrev');
+        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listUser('${data.prev_page_url}');`),
+                hPrev.style.visibility = "visible") :
+            hPrev.style.visibility = 'hidden';
+        let hNext = document.getElementById('hNext');
+        data.next_page_url ? (hNext.setAttribute('onclick', `return listUser('${data.next_page_url}');`),
+                hNext.style.visibility = "visible") :
+            hNext.style.visibility = "hidden";
+    });
 };
 
 let deleteUser = (e) => {
@@ -42,6 +65,8 @@ let deleteUser = (e) => {
         }
     }
 };
+
+
 //#region Llamadas a eventos
 document.addEventListener('DOMContentLoaded', () => {
     listUser();

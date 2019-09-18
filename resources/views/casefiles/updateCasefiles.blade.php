@@ -3,9 +3,9 @@
     <div class="row">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Agregar Expediente</h3>
+                <h3 class="box-title">Editar Expediente</h3>
             </div>
-            <form class="form-horizontal" id="frmAddCasefile" method="post">
+            <form class="form-horizontal" id="frmUpdateCasefile" method="post">
                 @csrf
                 <div class="box-body">
                     <div class="row">
@@ -54,7 +54,19 @@
                     </div>
                 </div>
                 <div class="box-footer text-center">
-                    <input type="submit" data-toggle="modal" data-target="#modal-success" value="Agregar" class="btn btn-primary">
+                <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-4">
+                                <a href="{{route('listCasefiles')}}" id="back" class="btn btn-default"><i class="fa fa-arrow-left"></i> Volver</a>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="submit" id="update" data-toggle="modal" data-target="#modal-success" value="Actualizar" class="btn btn-primary">
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="submit" id="updateBack" onclick="return back();" value="Actualizar y Volver" class="btn btn-default">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -80,5 +92,5 @@
     <!-- /.modal-dialog -->
 </div>
 @endsection @section('scripts')
-<script src="js/casefiles/addCasefiles.js"></script>
+<script src="js/casefiles/updateCasefiles.js"></script>
 @endsection

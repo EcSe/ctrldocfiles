@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class documentStateModel extends Model
+class casefilesTypeModel extends Model
 {
-    protected $table = 'tb_document_state';
+    protected $table = 'tb_casefiles_type';
     public $incrementing = true;
     public $timestamps = false;
-    protected $primaryKey = 'id';
+    protected $primarykey = 'id';
     protected $fillable = [
-        'description','value'
+        'description'
     ];
 }

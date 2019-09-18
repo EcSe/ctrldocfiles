@@ -59,6 +59,12 @@ class clientController extends Controller
         }
     }
 
+    public function listPaginate()
+    {
+        $clients = clientModel::with(['type_client'])->paginate(10);
+        return response()->json($clients);
+    }
+
     public function listar()
     {
         $clients = clientModel::with(['type_client'])->get();

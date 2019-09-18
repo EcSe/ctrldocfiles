@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `tb_casefiles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_client` int(11) NOT NULL,
   `id_type` int(11) DEFAULT NULL,
-  `description` int(11) NOT NULL,
+  `description` varchar(250) NOT NULL,
   `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `finish_date` timestamp NULL DEFAULT NULL,
   `start_user_id` int(11) NOT NULL,
@@ -132,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `tb_main_document` (
   `period_finish_date` date DEFAULT NULL,
   `value` decimal(10,0) DEFAULT NULL,
   `main_doc_id` int(11) DEFAULT NULL,
-  `place_details_id` int(11) NOT NULL, -- ID lugar fisico donde se guardara la documentacion
-  `place_details_obs` varchar(250) NOT NULL,
+  `place_details_id` int(11) , -- ID lugar fisico donde se guardara la documentacion
+  `place_details_obs` varchar(250) ,
   `user_upload_id` int(11) NOT NULL,
   `document_state` int(11) NOT NULL,
   PRIMARY KEY (`id`)

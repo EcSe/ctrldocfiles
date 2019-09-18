@@ -26,8 +26,8 @@ class mainDocumentController extends Controller
         $document->period_finish_date = $request->input('period_finish_date');
         $document->value = $request->input('value');
         $document->main_doc_id = $request->input('main_doc_id');
-        $document->place_details_id = $request->input('place_details_id');
-        $document->place_details_obs = $request->input('place_details_obs');
+        $document->place_details_id = $request->input('place_details_id', null);
+        $document->place_details_obs = $request->input('place_details_obs', null);
         $user = session('user');
         $document->user_upload_id = $user->id;
         $document->document_state = $request->input('document_state');
@@ -58,11 +58,11 @@ class mainDocumentController extends Controller
         $documentUpdate->description = $request->input('description');
 
         $file = $request->file('filename');
-        if($file){
-            $fileold =$documentUpdate->filename;
+        if ($file) {
+            $fileold = $documentUpdate->filename;
             Storage::disk('doc')->delete($fileold);
-            $filePath = time().$file->getClientOriginalName(); 
-            Storage::disk('doc')->put($filePath,\File::get($file));
+            $filePath = time() . $file->getClientOriginalName();
+            Storage::disk('doc')->put($filePath, \File::get($file));
             $documentUpdate->filename = $filePath;
         }
         $documentUpdate->document_date = $request->input('document_date');
@@ -88,6 +88,12 @@ class mainDocumentController extends Controller
         } else {
             return response()->json('Ha ocurrido un error');
         }
+    }
+
+    public function listPaginate()
+    {
+        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->paginate(10);
+        return response()->json($documents);
     }
 
     public function listar()

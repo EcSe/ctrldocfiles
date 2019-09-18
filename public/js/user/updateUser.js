@@ -13,8 +13,7 @@ let cargarCampos = () => {
     fetch(`/user/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('code').value = data.code;
         document.getElementById('name').value = data.name;
-        //document.getElementById('email').value = data.email;
-        frmUpdate.email.value = data.email;
+        document.getElementById('email').value = data.email;
         document.getElementById('description').value = data.description;
         document.getElementById('login').value = data.login;
         document.getElementById('password').value = data.password;
@@ -39,7 +38,7 @@ let updateUser = (e) => {
 };
 
 let back = () => {
-    // hrfBack.click();
+
     location.href = "http://ctrldocfiles.com.devel/list";
 };
 
@@ -51,4 +50,4 @@ document.addEventListener('DOMContentLoaded', () => {
 frmUpdate.addEventListener('submit', (e) => {
     updateUser(e);
 });
-//#endregion
+//#endregionv

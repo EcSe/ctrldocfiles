@@ -1,28 +1,28 @@
-let tbody = document.getElementById('tbodyDocument');
+let tbodyCasefile = document.getElementById('tbodyCasefile');
 
-let listDocument = (ruta) => {
+let listCasefile = (ruta) => {
     let rutafetch;
-    ruta ? rutafetch = ruta : rutafetch = '/documentPaginate';
+    ruta ? rutafetch = ruta : rutafetch = '/casefilePaginate';
     let init = {
-        method: "get",
-        mode: 'cors',
-    }
+        method: 'GET',
+        mode: 'cors'
+    };
     fetch(rutafetch, init).then(res => res.json()).then(data => {
-        while (tbody.firstChild) {
-            tbody.removeChild(tbody.firstChild);
+        while (tbodyCasefile.firstChild) {
+            tbodyCasefile.removeChild(tbodyCasefile.firstChild);
         }
         for (let i = 0; i < data.data.length; i++) {
             let fila = document.createElement('tr');
             fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
             fila.innerHTML += (`<td>${data.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
             fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].value}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
-                                <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteDocument(this)"><i class="fa fa-trash"></i></button></td>`);
+            fila.innerHTML += (`<td>${data.data[i].casefile_state.description}</td>`);
+            fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+                                <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteCasefile(this)"><i class="fa fa-trash"></i></button></td>`);
 
-            tbody.appendChild(fila);
+            tbodyCasefile.appendChild(fila);
         }
         //Paginacion
         let from = document.getElementById('from');
@@ -34,17 +34,17 @@ let listDocument = (ruta) => {
         let currentPage = document.getElementById('currentPage');
         currentPage.innerHTML = data.current_page;
         let hPrev = document.getElementById('hPrev');
-        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${data.prev_page_url}');`),
+        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listCasefile('${data.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${data.next_page_url}');`),
+        data.next_page_url ? (hNext.setAttribute('onclick', `return listCasefile('${data.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
-    })
+    });
 };
 
-let deleteDocument = (e) => {
+let deleteCasefile = (e) => {
     let idUser = e.parentNode.parentElement.cells[0].innerHTML;
     let init = {
         method: 'DELETE',
@@ -56,7 +56,7 @@ let deleteDocument = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/document/${idUser}`, init).then(res => res.json()).then(data => {
+            fetch(`/casefile/${idUser}`, init).then(res => res.json()).then(data => {
                 let row = e.parentNode.parentElement;
                 row.remove()
             });
@@ -64,8 +64,8 @@ let deleteDocument = (e) => {
     }
 };
 
-//#region Llamadas a eventos
+//#region Eventos
 document.addEventListener('DOMContentLoaded', () => {
-    listDocument();
+    listCasefile();
 });
-//#endregion
+//#endregiondata.

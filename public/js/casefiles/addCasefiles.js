@@ -1,7 +1,7 @@
 let cboClient = document.getElementById('id_client');
-let cboEstadoDocumento = document.getElementById('document_state');
-let cboTypeDocument = document.getElementById('id_type');
-let frmDocument = document.getElementById('frmAddDocument');
+let cboType = document.getElementById('id_type');
+let cboState = document.getElementById('casefile_state');
+let frmCasefile = document.getElementById('frmAddCasefile');
 
 let listClient = () => {
     let init = {
@@ -16,48 +16,48 @@ let listClient = () => {
             cboClient.appendChild(option);
         }
     });
-}
+};
 
-let listDocumentState = () => {
+let listTipo = () => {
     let init = {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentState', init).then(res => res.json()).then(data => {
-        for (let i = 0; i < data.length; i++) {
+    fetch('/casefileType', init).then(res => res.json()).then(data => {
+        for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
             option.text = data[i].description;
-            cboEstadoDocumento.appendChild(option);
+            cboType.appendChild(option);
         }
     });
-}
+};
 
-let listDocumentType = () => {
+let listState = () => {
     let init = {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentType', init).then(res => res.json()).then(data => {
-        for (let i = 0; i < data.length; i++) {
+    fetch('/casefileState', init).then(res => res.json()).then(data => {
+        for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
             option.text = data[i].description;
-            cboTypeDocument.appendChild(option);
+            cboState.appendChild(option);
         }
     });
-}
+};
 
-let addDocument = (e) => {
+let addCasefile = (e) => {
     e.preventDefault();
-    let frmData = new FormData(frmDocument);
+    let frmData = new FormData(frmCasefile);
     let init = {
-        method: 'POST',
+        method: 'post',
         body: frmData
-    }
-    fetch('/document', init).then(res => res.json()).then(data => {
-        frmDocument.reset();
-        let p = document.getElementById('documentMessage');
+    };
+    fetch('/casefile', init).then(res => res.json()).then(data => {
+        frmCasefile.reset();
+        let p = document.getElementById('casefileMessage');
         p.innerHTML = data;
     });
 }
@@ -65,10 +65,10 @@ let addDocument = (e) => {
 //#region Eventos
 document.addEventListener('DOMContentLoaded', () => {
     listClient();
-    listDocumentState();
-    listDocumentType();
+    listTipo();
+    listState();
 });
-frmDocument.addEventListener('submit', (e) => {
-    addDocument(e);
+frmCasefile.addEventListener('submit', (e) => {
+    addCasefile(e);
 });
 //#endregion

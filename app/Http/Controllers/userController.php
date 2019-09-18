@@ -94,14 +94,18 @@ class userController extends Controller
     public function show($id)
     {
         //$usr = userModel::where('id', $id)->first();
-        $usr = userModel::with(['type_level','account_state'])->where('id',$id)->first();
+        $usr = userModel::with(['type_level', 'account_state'])->where('id', $id)->first();
         if ($usr) {
             return response()->json($usr);
         } else {
             return response()->json('Ha ocurrido un error');
         }
     }
-
+    public function listPaginate()
+    {
+        $users = userModel::with(['account_state'])->paginate(10);
+        return response()->json($users);
+    }
     public function listar()
     {
         $users = userModel::with(['account_state'])->get();

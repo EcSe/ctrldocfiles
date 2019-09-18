@@ -3,9 +3,9 @@
     <div class="row">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Agregar Documento</h3>
+                <h3 class="box-title">Agregar Documento a Expediente</h3>
             </div>
-            <form class="form-horizontal" id="frmAddDocument" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" id="frmAddDocumentIntoCasefile" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                     <div class="row">
@@ -182,5 +182,5 @@
     <!-- /.modal-dialog -->
 </div>
 @endsection @section('scripts')
-<script src="js/document/addDocument.js"></script>
+<script src="js/casefilesDocument/addCasefilesDocument.js"></script>
 @endsection

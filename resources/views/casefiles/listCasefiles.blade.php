@@ -4,7 +4,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Lista de Clientes</h3>
+                    <h3 class="box-title">Lista de Expedientes</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -22,23 +22,21 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Cif</th>
-                                            <th>Code</th>
+                                            <th>Cliente</th>
+                                            <th>Tipo</th>
                                             <th>Descripcion</th>
-                                            <th>Email</th>
-                                            <th>Tipo Cliente</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tbodyClient">
+                                    <tbody id="tbodyCasefile">
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Cif</th>
-                                            <th>Code</th>
+                                            <th>Cliente</th>
+                                            <th>Tipo</th>
                                             <th>Descripcion</th>
-                                            <th>Email</th>
-                                            <th>Tipo Cliente</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -84,7 +82,7 @@
                 <h4 class="modal-title">Mensaje del Sistema</h4>
             </div>
             <div class="modal-body">
-                <p>Esta seguro de borrar este cliente&hellip;</p>
+                <p>Esta seguro de borrar este expediente&hellip;</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
@@ -96,5 +94,5 @@
     <!-- /.modal-dialog -->
 </div>
 @endsection @section('scripts')
-<script src="js/client/listClient.js"></script>
+<script src="js/casefiles/listCasefiles.js"></script>
 @endsection
