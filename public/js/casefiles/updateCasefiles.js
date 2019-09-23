@@ -75,8 +75,13 @@ let updateCasefile = (e) => {
         body: frmData
     };
     fetch(`/casefile/${id}`, init).then(res => res.json()).then(data => {
-        let p = document.getElementById('casefileMessage');
-        p.innerHTML = data;
+        let alertCasefileUpdate = document.getElementById('alertCasefileUpdate');
+        let spnCasefileMessageUpdate = document.getElementById('casefileMessageUpdate');
+        alertCasefileUpdate.style.display = 'block';
+        spnCasefileMessageUpdate.innerHTML = data;
+        setTimeout(() => {
+            alertCasefileUpdate.style.display = 'none';
+        }, 9000);
     });
 };
 

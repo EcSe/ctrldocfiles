@@ -9,8 +9,13 @@ let addClient = (e) => {
     }
     fetch('/client', init).then(res => res.json()).then(data => {
         frmAddClient.reset();
-        let p = document.getElementById('clientMessage');
-        p.innerHTML = data;
+        let alertClient = document.getElementById('alertClient');
+        let spnClientMessage = document.getElementById('clientMessage');
+        alertClient.style.display = 'block';
+        spnClientMessage.innerHTML = data;
+        setTimeout(() => {
+            alertClient.style.display = 'none';
+        }, 9000);
     });
 };
 

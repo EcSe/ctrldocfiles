@@ -57,8 +57,13 @@ let addCasefile = (e) => {
     };
     fetch('/casefile', init).then(res => res.json()).then(data => {
         frmCasefile.reset();
-        let p = document.getElementById('casefileMessage');
-        p.innerHTML = data;
+        let alertCasefile = document.getElementById('alertCasefile');
+        let spnCasefileMessage = document.getElementById('casefileMessage');
+        alertCasefile.style.display = 'block';
+        spnCasefileMessage.innerHTML = data;
+        setTimeout(() => {
+            alertCasefile.style.display = 'none';
+        }, 9000);
     });
 }
 

@@ -57,8 +57,13 @@ let addDocument = (e) => {
     }
     fetch('/document', init).then(res => res.json()).then(data => {
         frmDocument.reset();
-        let p = document.getElementById('documentMessage');
-        p.innerHTML = data;
+        let alertDocument = document.getElementById('alertDocument');
+        let spnDocumentMessage = document.getElementById('documentMessage');
+        alertDocument.style.display = 'block';
+        spnDocumentMessage.innerHTML = data;
+        setTimeout(() => {
+            alertDocument.style.display = 'none';
+        }, 9000);
     });
 }
 

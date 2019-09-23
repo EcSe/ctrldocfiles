@@ -41,6 +41,8 @@ Route::get('/userPaginate','userController@listPaginate');
 Route::get('/user/{id}', 'userController@show');
 Route::delete('/user/{id}', 'userController@destroy');
 Route::post('/user/{id}', 'userController@update');
+Route::post('/searchUser','userController@search');
+Route::get('/disk','userController@disco');
 
 Route::get('/add', function () {
     return view('usuario.addUser');
@@ -64,6 +66,7 @@ Route::get('/clientPaginate','clientController@listPaginate');
 Route::get('/client/{id}', 'clientController@show');
 Route::delete('/client/{id}', 'clientController@destroy');
 Route::post('/client/{id}', 'clientController@update');
+Route::post('/searchClient','clientController@search');
 
 Route::get('/ac', function () {
     return view('client.addClient');
@@ -86,6 +89,7 @@ Route::get('/documentPaginate','mainDocumentController@listPaginate');
 Route::get('/document/{id}', 'mainDocumentController@show');
 Route::delete('/document/{id}', 'mainDocumentController@destroy');
 Route::post('/document/{id}', 'mainDocumentController@update');
+Route::post('/searchDocument','mainDocumentController@search');
 
 Route::get('/ad', function () {
     return view('document.addDocument');
@@ -109,6 +113,7 @@ Route::get('/casefilePaginate','casefilesController@listPaginate');
 Route::get('/casefile/{id}', 'casefilesController@show');
 Route::delete('/casefile/{id}', 'casefilesController@destroy');
 Route::post('/casefile/{id}', 'casefilesController@update');
+Route::post('/searchCasefiles','casefilesController@search');
 
 Route::get('/aca', function () {
     return view('casefiles.addCasefiles');

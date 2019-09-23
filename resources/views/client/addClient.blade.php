@@ -1,5 +1,10 @@
 @extends('master') @section('content')
 <section class="content">
+    <div class="alert alert-success alert-dismissible" id="alertClient" style="display: none">
+        <button id="btnClose" class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
+        <h4><i class="icon fa fa-check"></i>Sistema</h4>
+        <span id="clientMessage"></span>
+    </div>
     <div class="row">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -47,7 +52,7 @@
                                     <label for="address" class="control-label">Direccion</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="address" name="address" class="form-control" placeholder="Direccion">
+                                    <input type="text" id="address" name="address" class="form-control" maxlength="15" placeholder="Direccion">
                                 </div>
                             </div>
                         </div>
@@ -111,25 +116,6 @@
         </div>
     </div>
 </section>
-<div class="modal modal-success fade" id="modal-success">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Mensaje</h4>
-            </div>
-            <div class="modal-body">
-                <p id="clientMessage">One find body&hellip;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-right-container" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 @endsection @section('scripts')
 <script src="js/client.js"></script>
 @endsection

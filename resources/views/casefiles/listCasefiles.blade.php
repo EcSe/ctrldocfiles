@@ -44,6 +44,29 @@
                             </div>
                         </div>
                     </div>
+                    <form id="frmSearchCasefile">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-6">
+                                    <select class="form-control select2-container" id="srchClient" name="srchClient"></select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="search" class="form-control input-sm" id="srchDescription" name="srchDescription" placeholder="Descripcion">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-6 text-center">
+                                    <input type="submit" value="Buscar" class="btn btn-primary">
+                                </div>
+                                <div class="col-sm-6 text-center">
+                                    <input type="button" value="Borrar Filtro" onclick="listCasefile()" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\clientModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class clientController extends Controller
 {
@@ -68,6 +69,26 @@ class clientController extends Controller
     public function listar()
     {
         $clients = clientModel::with(['type_client'])->get();
+        return response()->json($clients);
+    }
+
+    public function search(Request $request)
+    {
+        $cif = $request->input('srchCif');
+        $code = $request->input('srchCode');
+        $email = $request->input('srchEmail');
+
+        $clients = DB::table('tb_clients')
+            ->when($cif, function ($query) use ($cif) {
+                return $query->orWhere('cif', 'like', '%' . $cif . '%');
+            })
+            ->when($code, function ($query) use ($code) {
+                return $query->orWhere('code', 'like', '%' . $code . '%');
+            })
+            ->when($email, function ($query) use ($email) {
+                return $query->orWhere('email', 'like', '%' . $email . '%');
+            })
+            ->paginate(10);
         return response()->json($clients);
     }
 }

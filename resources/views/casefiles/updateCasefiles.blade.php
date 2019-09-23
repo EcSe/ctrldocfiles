@@ -1,5 +1,10 @@
 @extends('master') @section('content')
 <section class="content">
+    <div class="alert alert-success alert-dismissible" id="alertCasefileUpdate" style="display: none">
+        <button id="btnClose" class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
+        <h4><i class="icon fa fa-check"></i>Sistema</h4>
+        <span id="casefileMessageUpdate"></span>
+    </div>
     <div class="row">
         <div class="box box-primary">
             <div class="box-header with-border">
@@ -54,7 +59,7 @@
                     </div>
                 </div>
                 <div class="box-footer text-center">
-                <div class="row">
+                    <div class="row">
                         <div class="col-xs-12">
                             <div class="col-xs-4">
                                 <a href="{{route('listCasefiles')}}" id="back" class="btn btn-default"><i class="fa fa-arrow-left"></i> Volver</a>
@@ -72,25 +77,6 @@
         </div>
     </div>
 </section>
-<div class="modal modal-success fade" id="modal-success">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Mensaje</h4>
-            </div>
-            <div class="modal-body">
-                <p id="casefileMessage">One find body&hellip;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 @endsection @section('scripts')
 <script src="js/casefiles/updateCasefiles.js"></script>
 @endsection

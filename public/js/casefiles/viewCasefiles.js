@@ -140,8 +140,8 @@ let listDocumentsIntoCasefile = (ruta) => {
 
 let verPdf = (e) => {
     let urlPdf = e.parentNode.parentElement.cells[2].innerHTML;
-    document.getElementById('objectdocument').data = `/storage/documentos/${urlPdf}`;
-    document.getElementById('idocument').src = `/storage/documentos/${urlPdf}`;
+    document.getElementById('objectdocument').data = `/documentos/${urlPdf}`;
+    document.getElementById('idocument').src = `/documentos/${urlPdf}`;
 
 };
 

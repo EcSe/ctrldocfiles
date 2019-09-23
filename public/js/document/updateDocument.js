@@ -84,8 +84,13 @@ let updateDocument = (e) => {
     };
 
     fetch(`/document/${id}`, init).then(res => res.json()).then(data => {
-        let p = document.getElementById('userMessage');
-        p.innerHTML = data;
+        let alertDocumentUpdate = document.getElementById('alertDocumentUpdate');
+        let spnDocumentMessageUpdate = document.getElementById('documentMessageUpdate');
+        alertDocumentUpdate.style.display = 'block';
+        spnDocumentMessageUpdate.innerHTML = data;
+        setTimeout(() => {
+            alertDocumentUpdate.style.display = 'none';
+        }, 9000);
     });
 };
 

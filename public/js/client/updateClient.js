@@ -30,8 +30,13 @@ let updateClient = (e) => {
         body: frmData
     };
     fetch(`/client/${id}`, init).then(res => res.json()).then(data => {
-        let p = document.getElementById('clientMessage');
-        p.innerHTML = data;
+        let alertClientUpdate = document.getElementById('alertClientUpdate');
+        let spnClientMessageUpdate = document.getElementById('clientMessageUpdate');
+        alertClientUpdate.style.display = 'block';
+        spnClientMessageUpdate.innerHTML = data;
+        setTimeout(() => {
+            alertClientUpdate.style.display = 'none';
+        }, 9000);
     });
 };
 

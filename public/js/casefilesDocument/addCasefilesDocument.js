@@ -58,8 +58,13 @@ let addDocument = (e) => {
     }
     fetch('/docuIntoCasefiles', init).then(res => res.json()).then(data => {
         frmDocument.reset();
-        let p = document.getElementById('documentMessage');
-        p.innerHTML = data;
+        let alertCasefileDocumnet = document.getElementById('alertCasefileDocumnet');
+        let spnCasefileDocumentMessage = document.getElementById('casefiledocumentMessage');
+        alertCasefileDocumnet.style.display = 'block';
+        spnCasefileDocumentMessage.innerHTML = data;
+        setTimeout(() => {
+            alertCasefileDocumnet.style.display = 'none';
+        }, 9000);
     });
 };
 

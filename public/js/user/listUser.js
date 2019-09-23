@@ -1,10 +1,10 @@
 let tbody = document.getElementById('tbody');
+let frmSearchUser = document.getElementById('frmSearchUser');
 
 let listUser = (ruta) => {
+    frmSearchUser.reset();
     let rutafetch;
     ruta ? rutafetch = ruta : rutafetch = '/userPaginate';
-    // let cantidadUsers;
-    // cant ? cantidadUsers = cant : cantidadUsers = 10;
     let init = {
         method: "get",
         mode: 'cors',
@@ -46,6 +46,33 @@ let listUser = (ruta) => {
     });
 };
 
+let searchUser = (e) => {
+    e.preventDefault();
+    let frmData = new FormData(frmSearchUser);
+    let init = {
+        method: 'post',
+        body: frmData
+    };
+    fetch('/searchUser', init).then(res => res.json()).then(data => {
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+        for (let i = 0; i < data.data.length; i++) {
+            let fila = document.createElement('tr');
+            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].name}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].email}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].account_state.description}</td>`);
+            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+                                <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
+            tbody.appendChild(fila);
+        }
+    });
+};
+
 let deleteUser = (e) => {
     let idUser = e.parentNode.parentElement.cells[0].innerHTML;
     let init = {
@@ -70,5 +97,8 @@ let deleteUser = (e) => {
 //#region Llamadas a eventos
 document.addEventListener('DOMContentLoaded', () => {
     listUser();
+});
+frmSearchUser.addEventListener('submit', (e) => {
+    searchUser(e);
 });
 //#endregion

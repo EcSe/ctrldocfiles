@@ -1,6 +1,24 @@
 let tbodyCasefile = document.getElementById('tbodyCasefile');
+let frmSearchCasefile = document.getElementById('frmSearchCasefile');
+
+let listClient = () => {
+    let init = {
+        method: 'get',
+        mode: 'cors'
+    };
+    fetch('/client', init).then(res => res.json()).then(data => {
+        let srchClient = document.getElementById('srchClient');
+        for (let i = 0; i < data.length; i++) {
+            let option = document.createElement('option');
+            option.value = data[i].id;
+            option.text = data[i].description;
+            srchClient.appendChild(option);
+        }
+    });
+};
 
 let listCasefile = (ruta) => {
+    frmSearchCasefile.reset();
     let rutafetch;
     ruta ? rutafetch = ruta : rutafetch = '/casefilePaginate';
     let init = {
@@ -44,6 +62,33 @@ let listCasefile = (ruta) => {
     });
 };
 
+let searchCasefile = (e) => {
+    e.preventDefault();
+    let frmData = new FormData(frmSearchCasefile);
+    let init = {
+        method: 'post',
+        body: frmData
+    };
+    fetch('/searchCasefiles', init).then(res => res.json()).then(data => {
+        while (tbodyCasefile.firstChild) {
+            tbodyCasefile.removeChild(tbodyCasefile.firstChild);
+        }
+        for (let i = 0; i < data.data.length; i++) {
+            let fila = document.createElement('tr');
+            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].casefile_state.description}</td>`);
+            fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+                                <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteCasefile(this)"><i class="fa fa-trash"></i></button></td>`);
+
+            tbodyCasefile.appendChild(fila);
+        }
+    });
+};
+
 let deleteCasefile = (e) => {
     let idUser = e.parentNode.parentElement.cells[0].innerHTML;
     let init = {
@@ -67,5 +112,9 @@ let deleteCasefile = (e) => {
 //#region Eventos
 document.addEventListener('DOMContentLoaded', () => {
     listCasefile();
+    listClient();
+});
+frmSearchCasefile.addEventListener('submit', (e) => {
+    searchCasefile(e);
 });
 //#endregiondata.

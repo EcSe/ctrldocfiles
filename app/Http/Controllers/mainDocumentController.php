@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\mainDocumentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class mainDocumentController extends Controller
 {
@@ -22,7 +23,7 @@ class mainDocumentController extends Controller
         }
         $document->filename = $filePath;
         $document->document_date = $request->input('document_date');
-        $document->period_start_date = $request->input('period_star_date');
+        $document->period_start_date = $request->input('period_start_date');
         $document->period_finish_date = $request->input('period_finish_date');
         $document->value = $request->input('value');
         $document->main_doc_id = $request->input('main_doc_id');
@@ -99,6 +100,26 @@ class mainDocumentController extends Controller
     public function listar()
     {
         $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->get();
+        return response()->json($documents);
+    }
+
+    public function search(Request $request)
+    {
+        $code = $request->input('srchCode');
+        $descripcion = $request->input('srchDescription');
+        $date = $request->input('srchDate');
+
+        $documents = DB::table('tb_main_document')
+            ->when($code, function ($query) use ($code) {
+                return $query->orWhere('document_code', 'like', '%' . $code . '%');
+            })
+            ->when($descripcion, function ($query) use ($descripcion) {
+                return $query->orWhere('description', 'like', '%' . $descripcion . '%');
+            })
+            ->when($date, function ($query) use ($date) {
+                return $query->orWhere('document_date', 'like', '%' . $date . '%');
+            })
+            ->paginate(10);
         return response()->json($documents);
     }
 }

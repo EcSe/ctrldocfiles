@@ -32,14 +32,20 @@ let updateUser = (e) => {
     };
 
     fetch(`/user/${id}`, init).then(res => res.json()).then(data => {
-        let p = document.getElementById('userMessage');
-        p.innerHTML = data;
+        let alertUserUpdate = document.getElementById('alertUserUpdate');
+        let spnUserMessageUpdate = document.getElementById('userMessageUpdate');
+        alertUserUpdate.style.display = 'block';
+        spnUserMessageUpdate.innerHTML = data;
+        setTimeout(() => {
+            alertUserUpdate.style.display = 'none';
+        }, 9000);
     });
 };
 
 let back = () => {
 
-    location.href = "http://ctrldocfiles.com.devel/list";
+    //location.href = "http://ctrldocfiles.com.devel/list";
+    location.href = "/list";
 };
 
 //#region Eventos

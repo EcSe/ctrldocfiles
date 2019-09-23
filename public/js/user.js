@@ -9,8 +9,14 @@ let addUser = (e) => {
     }
     fetch('/user', init).then(res => res.json()).then(data => {
         frmAddUser.reset();
-        let p = document.getElementById('userMessage');
-        p.innerHTML = data;
+        let alertUser = document.getElementById('alertUser');
+        let spnUserMessage = document.getElementById('userMessage');
+        alertUser.style.display = 'block';
+        spnUserMessage.innerHTML = data;
+        setTimeout(() => {
+            alertUser.style.display = 'none';
+        }, 9000);
+
     });
 };
 

@@ -44,6 +44,32 @@
                             </div>
                         </div>
                     </div>
+                    <form id="frmSearchDocument">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-4">
+                                    <input type="search" class="form-control input-sm" id="srchCode" name="srchCode" placeholder="Codigo Documento">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="search" class="form-control input-sm" id="srchDescription" name="srchDescription" placeholder="Descripcion">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="date" class="form-control input-sm" id="srchDate" name="srchDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-6 text-center">
+                                    <input type="submit" value="Buscar" class="btn btn-primary">
+                                </div>
+                                <div class="col-sm-6 text-center">
+                                    <input type="button" value="Borrar Filtro" onclick="listDocument()" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

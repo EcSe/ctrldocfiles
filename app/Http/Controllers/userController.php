@@ -47,6 +47,15 @@ class userController extends Controller
         }
     }
 
+    public function disco()
+    {
+        $espacioLibre = disk_free_space('/');
+        $espacioTotal = disk_total_space('/');
+        $percent = ($espacioLibre / $espacioTotal) * 100;
+
+        return response()->json($percent);
+    }
+
     public function agregar(Request $request)
     {
         $user = new userModel();
@@ -116,5 +125,25 @@ class userController extends Controller
     {
         $request->session()->flush();
         return redirect()->route('login');
+    }
+
+    public function search(Request $request)
+    {
+        $code = $request->input('srchCode', null);
+        $name = $request->input('srchName', null);
+        $email = $request->input('srchEmail', null);
+
+        $users = DB::table('tb_users')
+            ->when($code, function ($query) use ($code) {
+                return $query->orWhere('code', 'like', '%' . $code . '%');
+            })
+            ->when($name, function ($query) use ($name) {
+                return $query->orWhere('name', 'like', '%' . $name . '%');
+            })
+            ->when($email, function ($query) use ($email) {
+                return $query->orWhere('email', 'like', '%' . $email . '%');
+            })
+            ->paginate(10);
+        return response()->json($users);
     }
 }

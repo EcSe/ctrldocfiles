@@ -14,8 +14,8 @@ let viewDocument = () => {
         document.getElementById('tdescripcion').innerHTML = data.description;
         document.getElementById('tfilename').innerHTML = data.filename;
 
-        document.getElementById('objectdocument').data = `/storage/documentos/${data.filename}`;
-        document.getElementById('idocument').src = `/storage/documentos/${data.filename}`;
+        document.getElementById('objectdocument').data = `/documentos/${data.filename}`;
+        document.getElementById('idocument').src = `/documentos/${data.filename}`;
 
         document.getElementById('tfecha').innerHTML = data.document_date;
         document.getElementById('tperiodin').innerHTML = data.period_start_date;

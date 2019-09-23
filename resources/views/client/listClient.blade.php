@@ -46,6 +46,33 @@
                             </div>
                         </div>
                     </div>
+                    <form id="frmSearchClient">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-4">
+                                    <input type="search" class="form-control input-sm" id="srchCif" name="srchCif" placeholder="Cif">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="search" class="form-control input-sm" id="srchCode" name="srchCode" placeholder="Code">
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="search" class="form-control input-sm" id="srchEmail" name="srchEmail" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-6 text-center">
+                                    <input type="submit" value="Buscar" class="btn btn-primary">
+                                </div>
+                                <div class="col-sm-6 text-center">
+                                    <input type="button" value="Borrar Filtro" onclick="listClient()" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end form -->
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

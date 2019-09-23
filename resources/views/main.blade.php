@@ -100,7 +100,7 @@
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3 id="hcasefileOpen">150</h3>
+                    <h3 id="hEspacioDisco">></h3>
 
                     <p>Espacio Consulta</p>
                 </div>
@@ -115,7 +115,7 @@
             <!-- small box -->
             <div class="small-box bg-blue-gradient">
                 <div class="inner">
-                    <h3 id="hcasefileClose">53<sup style="font-size: 20px">%</sup></h3>
+                    <h3 id="hEspacioOcupado"></h3>
 
                     <p>Expedientes</p>
                 </div>
