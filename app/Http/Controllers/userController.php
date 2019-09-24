@@ -112,8 +112,9 @@ class userController extends Controller
     }
     public function listPaginate()
     {
+        $userNow = session('user');
         $users = userModel::with(['account_state'])->paginate(10);
-        return response()->json($users);
+        return response()->json(['userLevel' => $userNow->type_level,'listUserPaginate' => $users]);
     }
     public function listar()
     {
@@ -129,6 +130,7 @@ class userController extends Controller
 
     public function search(Request $request)
     {
+        $userNow = session('user');
         $code = $request->input('srchCode', null);
         $name = $request->input('srchName', null);
         $email = $request->input('srchEmail', null);
@@ -144,6 +146,6 @@ class userController extends Controller
                 return $query->orWhere('email', 'like', '%' . $email . '%');
             })
             ->paginate(10);
-        return response()->json($users);
+        return response()->json(['userLevel' => $userNow->type_level, 'users' =>$users]);
     }
 }

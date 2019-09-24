@@ -185,30 +185,34 @@
                             <i class="fa fa-male"></i>
                             <span>Clientes</span>
                             <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{route('addClient')}}"><i class="fa fa-plus"></i>Nuevo</a></li>
                             <li><a href="{{route('listClient')}}"><i class="fa fa-file"></i>Listar</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="treeview"> -->
-                    <a href="#">
-                        <i class="fa fa-info"></i>
-                        <span>Informacion</span>
-                        <span class="pull-right-container">
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-info"></i>
+                            <span>Informacion</span>
+                            <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a><i class="fa fa-pie-chart"></i>Consulta</a></li>
-                        <li><a><i class="fa fa-pie-chart"></i>Almacenamiento</a></li>
-                    </ul>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a><i class="fa fa-pie-chart"></i>Consulta</a></li>
+                            <li><a><i class="fa fa-pie-chart"></i>Almacenamiento</a></li>
+                        </ul>
+                    </li>
                     <li class="header text-gray">QUICK <i class="fa fa-plus text-gray"></i></li>
-                    <li><a href="{{route('addDocument')}}"><i class="fa fa-file-text text-gray"></i> <span>Documentos</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-plus text-gray"></i></a></li>
-                    <li><a href="{{route('addCasefiles')}}"><i class="fa fa-suitcase text-gray"></i> <span>Expedientes</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-plus text-gray"></i></a></li>
-                    <li><a href="#"><i class="fa fa-search text-gray"></i> <span>Busquedas</span></a></li>
+                    <li><a href="{{route('addDocument')}}"><i class="fa fa-file-text text-gray"></i>
+                            <span>Documentos</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fa fa-plus text-gray"></i></a></li>
+                    <li><a href="{{route('addCasefiles')}}"><i class="fa fa-suitcase text-gray"></i>
+                            <span>Expedientes</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fa fa-plus text-gray"></i></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->

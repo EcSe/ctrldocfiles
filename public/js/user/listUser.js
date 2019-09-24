@@ -13,34 +13,40 @@ let listUser = (ruta) => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.listUserPaginate.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].code}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].name}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].email}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].account_state.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
-                                <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
+            fila.innerHTML += (`<td style="display:none">${data.listUserPaginate.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].name}</td>`);
+            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].email}</td>`);
+            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].account_state.description}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.listUserPaginate.data[i].id}"><i class="fa fa-info"></i></a>
+                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.listUserPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
+                <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
+
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.listUserPaginate.data[i].id}">
+                                    <i class="fa fa-info"></i></a></td>`);
+            }
             tbody.appendChild(fila);
         }
         //Paginacion
         let from = document.getElementById('from');
-        from.innerHTML = data.from;
+        from.innerHTML = data.listUserPaginate.from;
         let to = document.getElementById('to');
-        to.innerHTML = data.to;
+        to.innerHTML = data.listUserPaginate.to;
         let total = document.getElementById('total');
-        total.innerHTML = data.total;
+        total.innerHTML = data.listUserPaginate.total;
         let currentPage = document.getElementById('currentPage');
-        currentPage.innerHTML = data.current_page;
+        currentPage.innerHTML = data.listUserPaginate.current_page;
         let hPrev = document.getElementById('hPrev');
-        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listUser('${data.prev_page_url}');`),
+        data.listUserPaginate.prev_page_url ? (hPrev.setAttribute('onclick', `return listUser('${data.listUserPaginate.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data.next_page_url ? (hNext.setAttribute('onclick', `return listUser('${data.next_page_url}');`),
+        data.listUserPaginate.next_page_url ? (hNext.setAttribute('onclick', `return listUser('${data.listUserPaginate.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
     });
@@ -57,17 +63,24 @@ let searchUser = (e) => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.users.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].code}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].name}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].email}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].account_state.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.users.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.users.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.users.data[i].name}</td>`);
+            fila.innerHTML += (`<td>${data.users.data[i].email}</td>`);
+            fila.innerHTML += (`<td>${data.users.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.users.data[i].account_state.description}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.users.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.users.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
+
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.users.data[i].id}">
+                                    <i class="fa fa-info"></i></a></td>`);
+
+            }
             tbody.appendChild(fila);
         }
     });

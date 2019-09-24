@@ -11,10 +11,6 @@
 |
  */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return view('login');
 })->name('login');
@@ -144,6 +140,11 @@ Route::get('/casedocu',function(){
 //Rutas UserLevel
 //===================
 Route::get('/userLevel', 'userLevelController@listar');
+
+//===================
+//Rutas UserLevel
+//===================
+Route::get('/accountState','accountStateController@listar');
 
 //===================
 //Rutas DocumentState

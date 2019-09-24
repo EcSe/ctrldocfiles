@@ -13,34 +13,39 @@ let listDocument = (ruta) => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.listDocumentPaginate.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_client.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].value}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.listDocumentPaginate.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.listDocumentPaginate.data[i].id_type.description}</td>`);
+            fila.innerHTML += (`<td>${data.listDocumentPaginate.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${data.listDocumentPaginate.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.listDocumentPaginate.data[i].value}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.listDocumentPaginate.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.listDocumentPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteDocument(this)"><i class="fa fa-trash"></i></button></td>`);
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.listDocumentPaginate.data[i].id}">
+                                    <i class="fa fa-info"></i></a></td>`);
+            }
 
             tbody.appendChild(fila);
         }
         //Paginacion
         let from = document.getElementById('from');
-        from.innerHTML = data.from;
+        from.innerHTML = data.listDocumentPaginate.from;
         let to = document.getElementById('to');
-        to.innerHTML = data.to;
+        to.innerHTML = data.listDocumentPaginate.to;
         let total = document.getElementById('total');
-        total.innerHTML = data.total;
+        total.innerHTML = data.listDocumentPaginate.total;
         let currentPage = document.getElementById('currentPage');
-        currentPage.innerHTML = data.current_page;
+        currentPage.innerHTML = data.listDocumentPaginate.current_page;
         let hPrev = document.getElementById('hPrev');
-        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${data.prev_page_url}');`),
+        data.listDocumentPaginate.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${data.listDocumentPaginate.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${data.next_page_url}');`),
+        data.listDocumentPaginate.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${data.listDocumentPaginate.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
     })
@@ -57,16 +62,21 @@ let searchDocument = (e) => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.documents.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_client.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].value}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.documents.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.documents.data[i].id_type.description}</td>`);
+            fila.innerHTML += (`<td>${data.documents.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${data.documents.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.documents.data[i].value}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.documents.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.documents.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteDocument(this)"><i class="fa fa-trash"></i></button></td>`);
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.documents.data[i].id}"><i class="fa fa-info">
+                                    </i></a></td>`);
+            }
 
             tbody.appendChild(fila);
         }

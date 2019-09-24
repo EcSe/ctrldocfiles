@@ -55,13 +55,6 @@ return [
             'visibility' => 'public',
         ],
 
-        // 'doc' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/public/documentos'),
-        //     'url' => env('APP_URL').'/storage',
-        //     'visibility' => 'public',
-        // ],
-
         'doc' => [
             'driver' => 'local',
             'root' => '/Users/elvinsalinasespinoza/ArchivosPrueba',

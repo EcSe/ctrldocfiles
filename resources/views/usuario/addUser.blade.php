@@ -97,8 +97,6 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select id="typeLevel" name="typeLevel" class="form-control">
-                                            <option value="1">Administrador</option>
-                                            <option value="2">Usuario</option>
                                     </select>
                                 </div>
                             </div>
@@ -112,9 +110,6 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select id="accountState" name="accountState" class="form-control">
-                                            <option value="1">Activo</option>
-                                            <option value="2">Inactivo</option>
-                                            <option value="3">Suspendida</option>
                                     </select>
                                 </div>
                             </div>

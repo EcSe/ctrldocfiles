@@ -36,7 +36,7 @@ let listDocument = (ruta) => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
-        let datos = data1.data;
+        let datos = data1.listDocumentPaginate.data;
         let docu = datos.filter(datos => datos.id_client.id === idCliente);
         for (let i = 0; i < docu.length; i++) {
             let fila = document.createElement('tr');
@@ -52,19 +52,19 @@ let listDocument = (ruta) => {
         }
         //Paginacion
         let from = document.getElementById('from');
-        from.innerHTML = data1.from;
+        from.innerHTML = data1.listDocumentPaginate.from;
         let to = document.getElementById('to');
-        to.innerHTML = data1.to;
+        to.innerHTML = data1.listDocumentPaginate.to;
         let total = document.getElementById('total');
-        total.innerHTML = data1.total;
+        total.innerHTML = data1.listDocumentPaginate.total;
         let currentPage = document.getElementById('currentPage');
-        currentPage.innerHTML = data1.current_page;
+        currentPage.innerHTML = data1.listDocumentPaginate.current_page;
         let hPrev = document.getElementById('hPrev');
-        data1.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${data1.prev_page_url}');`),
+        data1.listDocumentPaginate.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${data1.listDocumentPaginate.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data1.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${data1.next_page_url}');`),
+        data1.listDocumentPaginate.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${data1.listDocumentPaginate.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
     });

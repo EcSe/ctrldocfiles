@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\mainDocumentModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class mainDocumentController extends Controller
 {
@@ -93,8 +93,9 @@ class mainDocumentController extends Controller
 
     public function listPaginate()
     {
+        $userNow = session('user');
         $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->paginate(10);
-        return response()->json($documents);
+        return response()->json(['userLevel' => $userNow->type_level, 'listDocumentPaginate' => $documents]);
     }
 
     public function listar()
@@ -105,6 +106,7 @@ class mainDocumentController extends Controller
 
     public function search(Request $request)
     {
+        $userNow = session('user');
         $code = $request->input('srchCode');
         $descripcion = $request->input('srchDescription');
         $date = $request->input('srchDate');
@@ -120,6 +122,6 @@ class mainDocumentController extends Controller
                 return $query->orWhere('document_date', 'like', '%' . $date . '%');
             })
             ->paginate(10);
-        return response()->json($documents);
+        return response()->json(['userLevel' => $userNow->type_level, 'documents' => $documents]);
     }
 }

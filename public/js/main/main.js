@@ -81,7 +81,7 @@ let cargaMain = () => {
 
         //Espacio Ocupado por Expedientes
         let espacioOcupado = document.getElementById('hEspacioOcupado');
-        espacioOcupado.innerHTML = `${100.00-data3.toFixed(2)} %`
+        espacioOcupado.innerHTML = `${(100.00-data3).toFixed(2)} %`
     });
 };
 

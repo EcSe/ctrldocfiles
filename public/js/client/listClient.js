@@ -5,8 +5,6 @@ let listClient = (ruta) => {
     frmSearchClient.reset();
     let rutafetch;
     ruta ? rutafetch = ruta : rutafetch = '/clientPaginate';
-    // let cantidadUsers;
-    // cant ? cantidadUsers = cant : cantidadUsers = 10;
     let init = {
         method: 'get',
         mode: 'cors'
@@ -15,35 +13,39 @@ let listClient = (ruta) => {
         while (tbodyClient.firstChild) {
             tbodyClient.removeChild(tbodyClient.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.listClientPaginate.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].cif}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].code}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].email}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].type_client.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" href="/clientview?id=${data.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/clientedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.listClientPaginate.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.listClientPaginate.data[i].cif}</td>`);
+            fila.innerHTML += (`<td>${data.listClientPaginate.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.listClientPaginate.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.listClientPaginate.data[i].email}</td>`);
+            fila.innerHTML += (`<td>${data.listClientPaginate.data[i].type_client.description}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/clientview?id=${data.listClientPaginate.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/clientedit?id=${data.listClientPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteClient(this)"><i class="fa fa-trash"></i></button></td>`);
-
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/clientview?id=${data.listClientPaginate.data[i].id}" class="btn btn-default">
+                                     <i class="fa fa-info"></i></a></td>`);
+            }
             tbodyClient.appendChild(fila);
         }
         //Paginacion
         let from = document.getElementById('from');
-        from.innerHTML = data.from;
+        from.innerHTML = data.listClientPaginate.from;
         let to = document.getElementById('to');
-        to.innerHTML = data.to;
+        to.innerHTML = data.listClientPaginate.to;
         let total = document.getElementById('total');
-        total.innerHTML = data.total;
+        total.innerHTML = data.listClientPaginate.total;
         let currentPage = document.getElementById('currentPage');
-        currentPage.innerHTML = data.current_page;
+        currentPage.innerHTML = data.listClientPaginate.current_page;
         let hPrev = document.getElementById('hPrev');
-        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listClient('${data.prev_page_url}');`),
+        data.listClientPaginate.prev_page_url ? (hPrev.setAttribute('onclick', `return listClient('${data.listClientPaginate.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data.next_page_url ? (hNext.setAttribute('onclick', `return listClient('${data.next_page_url}');`),
+        data.listClientPaginate.next_page_url ? (hNext.setAttribute('onclick', `return listClient('${data.listClientPaginate.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
     });
@@ -80,18 +82,22 @@ let searchClient = (e) => {
         while (tbodyClient.firstChild) {
             tbodyClient.removeChild(tbodyClient.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.clients.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].cif}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].code}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].email}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].type_client.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" href="/clientview?id=${data.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/clientedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.clients.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.clients.data[i].cif}</td>`);
+            fila.innerHTML += (`<td>${data.clients.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.clients.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.clients.data[i].email}</td>`);
+            fila.innerHTML += (`<td>${data.clients.data[i].type_client.description}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/clientview?id=${data.clients.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/clientedit?id=${data.clients.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteClient(this)"><i class="fa fa-trash"></i></button></td>`);
-
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/clientview?id=${data.clients.data[i].id}" class="btn btn-default">
+                                    <i class="fa fa-info"></i></a></td>`);
+            }
             tbodyClient.appendChild(fila);
         }
     });

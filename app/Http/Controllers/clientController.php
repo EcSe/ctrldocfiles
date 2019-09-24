@@ -62,8 +62,9 @@ class clientController extends Controller
 
     public function listPaginate()
     {
+        $userNow = session('user');
         $clients = clientModel::with(['type_client'])->paginate(10);
-        return response()->json($clients);
+        return response()->json(['userLevel' => $userNow->type_level, 'listClientPaginate' => $clients]);
     }
 
     public function listar()
@@ -74,6 +75,7 @@ class clientController extends Controller
 
     public function search(Request $request)
     {
+        $userNow = session('user');
         $cif = $request->input('srchCif');
         $code = $request->input('srchCode');
         $email = $request->input('srchEmail');
@@ -89,6 +91,6 @@ class clientController extends Controller
                 return $query->orWhere('email', 'like', '%' . $email . '%');
             })
             ->paginate(10);
-        return response()->json($clients);
+        return response()->json(['userLevel' => $userNow->type_level, 'clients' => $clients]);
     }
 }

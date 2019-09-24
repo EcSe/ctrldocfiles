@@ -29,34 +29,39 @@ let listCasefile = (ruta) => {
         while (tbodyCasefile.firstChild) {
             tbodyCasefile.removeChild(tbodyCasefile.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.listCasefilePaginate.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_client.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].casefile_state.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.listCasefilePaginate.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.listCasefilePaginate.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${data.listCasefilePaginate.data[i].id_type.description}</td>`);
+            fila.innerHTML += (`<td>${data.listCasefilePaginate.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.listCasefilePaginate.data[i].casefile_state.description}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.listCasefilePaginate.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.listCasefilePaginate.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteCasefile(this)"><i class="fa fa-trash"></i></button></td>`);
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.listCasefilePaginate.data[i].id}" class="btn btn-default">
+                                    <i class="fa fa-info"></i></a></td>`);
+            }
 
             tbodyCasefile.appendChild(fila);
         }
         //Paginacion
         let from = document.getElementById('from');
-        from.innerHTML = data.from;
+        from.innerHTML = data.listCasefilePaginate.from;
         let to = document.getElementById('to');
-        to.innerHTML = data.to;
+        to.innerHTML = data.listCasefilePaginate.to;
         let total = document.getElementById('total');
-        total.innerHTML = data.total;
+        total.innerHTML = data.listCasefilePaginate.total;
         let currentPage = document.getElementById('currentPage');
-        currentPage.innerHTML = data.current_page;
+        currentPage.innerHTML = data.listCasefilePaginate.current_page;
         let hPrev = document.getElementById('hPrev');
-        data.prev_page_url ? (hPrev.setAttribute('onclick', `return listCasefile('${data.prev_page_url}');`),
+        data.listCasefilePaginate.prev_page_url ? (hPrev.setAttribute('onclick', `return listCasefile('${data.listCasefilePaginate.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data.next_page_url ? (hNext.setAttribute('onclick', `return listCasefile('${data.next_page_url}');`),
+        data.listCasefilePaginate.next_page_url ? (hNext.setAttribute('onclick', `return listCasefile('${data.listCasefilePaginate.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
     });
@@ -73,16 +78,21 @@ let searchCasefile = (e) => {
         while (tbodyCasefile.firstChild) {
             tbodyCasefile.removeChild(tbodyCasefile.firstChild);
         }
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.casefiles.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_client.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_type.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].casefile_state.description}</td>`);
-            fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.data[i].id}"><i class="fa fa-edit"></i></a>
+            fila.innerHTML += (`<td style="display:none">${data.casefiles.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${data.casefiles.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${data.casefiles.data[i].id_type.description}</td>`);
+            fila.innerHTML += (`<td>${data.casefiles.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${data.casefiles.data[i].casefile_state.description}</td>`);
+            if (data.userLevel === 1) {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.casefiles.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.casefiles.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteCasefile(this)"><i class="fa fa-trash"></i></button></td>`);
+            } else {
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.casefiles.data[i].id}" class="btn btn-default">
+                                    <i class="fa fa-info"></i></a></td>`);
+            }
 
             tbodyCasefile.appendChild(fila);
         }

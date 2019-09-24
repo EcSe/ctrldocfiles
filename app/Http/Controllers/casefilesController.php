@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\casefilesModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\clientModel;
 
 class casefilesController extends Controller
 {
@@ -64,8 +62,9 @@ class casefilesController extends Controller
 
     public function listPaginate()
     {
+        $userNow = session('user');
         $casefiles = casefilesModel::with(['id_client', 'id_type', 'casefile_state'])->paginate(10);
-        return response()->json($casefiles);
+        return response()->json(['userLevel' => $userNow->type_level, 'listCasefilePaginate' => $casefiles]);
     }
 
     public function listar()
@@ -74,20 +73,21 @@ class casefilesController extends Controller
         return response()->json($casefiles);
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
+        $userNow = session('user');
         $idClient = $request->input('srchClient');
         $description = $request->input('srchDescription');
-        
 
         $casefiles = casefilesModel::with(['id_client', 'id_type', 'casefile_state', 'start_user_id', 'finish_user_id'])
-            ->when($description, function($query) use ($description){
-                return $query->orWhere('description','like','%'.$description.'%');
+            ->when($description, function ($query) use ($description) {
+                return $query->orWhere('description', 'like', '%' . $description . '%');
             })
-            ->when($idClient, function($query) use ($idClient){
-                return $query->orWhere('id_client','like','%'.$idClient.'%');
+            ->when($idClient, function ($query) use ($idClient) {
+                return $query->orWhere('id_client', 'like', '%' . $idClient . '%');
             })
             ->paginate(10);
-        return response()->json($casefiles);
+        return response()->json(['userLevel' => $userNow->type_level,'casefiles' => $casefiles]);
 
     }
 }

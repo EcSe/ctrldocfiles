@@ -110,7 +110,7 @@
                                     <label for="value" class="control-label">Valor</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="value" name="value" class="form-control">
+                                    <input type="number" step="any" id="value" name="value" class="form-control" placeholder="0,00">
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                     <label for="main_doc_id" class="control-label">ID Main Doc</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="main_doc_id" name="main_doc_id" class="form-control">
+                                    <input type="number" id="main_doc_id" name="main_doc_id" class="form-control">
                                 </div>
                             </div>
                         </div>
