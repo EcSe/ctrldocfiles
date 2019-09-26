@@ -193,19 +193,6 @@
                             <li><a href="{{route('listClient')}}"><i class="fa fa-file"></i>Listar</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-info"></i>
-                            <span>Informacion</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a><i class="fa fa-pie-chart"></i>Consulta</a></li>
-                            <li><a><i class="fa fa-pie-chart"></i>Almacenamiento</a></li>
-                        </ul>
-                    </li>
                     <li class="header text-gray">QUICK <i class="fa fa-plus text-gray"></i></li>
                     <li><a href="{{route('addDocument')}}"><i class="fa fa-file-text text-gray"></i>
                             <span>Documentos</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i

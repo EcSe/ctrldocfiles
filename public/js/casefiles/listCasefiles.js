@@ -111,9 +111,40 @@ let deleteCasefile = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/casefile/${idUser}`, init).then(res => res.json()).then(data => {
-                let row = e.parentNode.parentElement;
-                row.remove()
+            // fetch(`/casefile/${idUser}`, init).then(res => res.json()).then(data => {
+            //     let row = e.parentNode.parentElement;
+            //     row.remove()
+            // });
+            fetch(`/casefile/${idUser}`, init).then(res => {
+
+                if (!res.ok) {
+                    console.log(res);
+                    let alertCasefile = document.getElementById('alertCasefile');
+                    alertCasefile.className = 'alert alert-danger alert-dismissible';
+                    res.json().then(data => {
+                        let spnCasefileMessage = document.getElementById('casefileMessage');
+                        alertCasefile.style.display = 'block';
+                        spnCasefileMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertCasefile.style.display = 'none';
+                        }, 9000);
+                    });
+                } else {
+                    res.json().then(data => {
+                        let row = e.parentNode.parentElement;
+                        row.remove()
+                        let alertCasefile = document.getElementById('alertCasefile');
+                        alertCasefile.className = 'alert alert-success alert-dismissible';
+                        let spnCasefileMessage = document.getElementById('casefileMessage');
+                        alertCasefile.style.display = 'block';
+                        spnCasefileMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertCasefile.style.display = 'none';
+                        }, 9000);
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
             });
         }
     }

@@ -5,7 +5,42 @@ let parametrosURL = new URLSearchParams(document.location.search.substring(1));
 let frmUpdate = document.getElementById('frmUpdateUser');
 let id = parametrosURL.get('id');
 
+let listUserState = () => {
+    let init = {
+        method: 'get',
+        mode: 'cors'
+    };
+    fetch('/accountState', init).then(res => res.json()).then(data => {
+        let cboAccountState = document.getElementById('accountState');
+        for (let i = 0; i < data.length; i++) {
+            let option = document.createElement('option');
+            option.text = data[i].description;
+            option.value = data[i].id;
+            cboAccountState.appendChild(option);
+        }
+    });
+};
+
+let listUserLevel = () => {
+    let init = {
+        method: 'get',
+        mode: 'cors'
+    };
+    fetch('/userLevel', init).then(res => res.json()).then(data => {
+        let cboTypeLevel = document.getElementById('typeLevel');
+        for (let i = 0; i < data.length; i++) {
+            let option = document.createElement('option');
+            option.value = data[i].id;
+            option.text = data[i].description;
+            cboTypeLevel.appendChild(option);
+        }
+    });
+};
+
+
 let cargarCampos = () => {
+    listUserState();
+    listUserLevel();
     let init = {
         method: 'GET',
         mode: 'cors'
@@ -44,7 +79,6 @@ let updateUser = (e) => {
 
 let back = () => {
 
-    //location.href = "http://ctrldocfiles.com.devel/list";
     location.href = "/list";
 };
 

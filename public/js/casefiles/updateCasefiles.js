@@ -55,6 +55,9 @@ let listState = () => {
 };
 
 let cargarCampos = () => {
+    listClient();
+    listTipo();
+    listState();
     init = {
         method: 'get',
         mode: 'cors'
@@ -95,8 +98,5 @@ frmUpdate.addEventListener('submit', (e) => {
 });
 document.addEventListener('DOMContentLoaded', () => {
     cargarCampos();
-    listClient();
-    listTipo();
-    listState();
 });
 //#endregion

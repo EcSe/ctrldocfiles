@@ -98,9 +98,38 @@ let deleteUser = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/user/${idUser}`, init).then(res => res.json()).then(data => {
-                let row = e.parentNode.parentElement;
-                row.remove()
+            // fetch(`/user/${idUser}`, init).then(res => res.json()).then(data => {
+            //     let row = e.parentNode.parentElement;
+            //     row.remove()
+            // });
+            fetch(`/user/${idUser}`, init).then(res => {
+                if (!res.ok) {
+                    let alertUser = document.getElementById('alertUser');
+                    alertUser.className = 'alert alert-danger alert-dismissible';
+                    res.json().then(data => {
+                        let spnUserMessage = document.getElementById('userMessage');
+                        alertUser.style.display = 'block';
+                        spnUserMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertUser.style.display = 'none';
+                        }, 9000);
+                    });
+                } else {
+                    res.json().then(data => {
+                        let row = e.parentNode.parentElement;
+                        row.remove()
+                        let alertUser = document.getElementById('alertUser');
+                        alertUser.className = 'alert alert-success alert-dismissible';
+                        let spnUserMessage = document.getElementById('userMessage');
+                        alertUser.style.display = 'block';
+                        spnUserMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertUser.style.display = 'none';
+                        }, 9000);
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
             });
         }
     }

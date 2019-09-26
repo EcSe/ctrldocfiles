@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `tb_main_document` (
   `document_date` date DEFAULT NULL,
   `period_start_date` date DEFAULT NULL,
   `period_finish_date` date DEFAULT NULL,
-  `value` decimal(10,0) DEFAULT NULL,
+  `value` decimal(10,2) DEFAULT NULL,
   `main_doc_id` int(11) DEFAULT NULL,
   `place_details_id` int(11) , -- ID lugar fisico donde se guardara la documentacion
   `place_details_obs` varchar(250) ,

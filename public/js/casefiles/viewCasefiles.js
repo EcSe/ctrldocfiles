@@ -23,28 +23,24 @@ let viewCasefile = () => {
 
 let listDocument = (ruta) => {
     let rutafetch;
-    ruta ? rutafetch = ruta : rutafetch = '/documentPaginate';
+    //ruta ? rutafetch = ruta : rutafetch = '/documentPaginate';
+    ruta ? rutafetch = ruta : rutafetch = `/documentclient/${id}`;
     let init = {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/casefile/${id}`, init).then(res => res.json()).then(data => {
-        idCliente = data.id_client.id;
-        return fetch(rutafetch, init)
-    }).then(res => res.json()).then(data1 => {
+    fetch(rutafetch, init).then(res => res.json()).then(info => {
         let tbody = document.getElementById('tbodyDocumentCasefile');
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
-        let datos = data1.listDocumentPaginate.data;
-        let docu = datos.filter(datos => datos.id_client.id === idCliente);
-        for (let i = 0; i < docu.length; i++) {
+        for (let i = 0; i < info.data.length; i++) {
             let fila = document.createElement('tr');
-            fila.innerHTML += (`<td style="display:none">${docu[i].id}</td>`);
-            fila.innerHTML += (`<td>${docu[i].id_type.description}</td>`);
-            fila.innerHTML += (`<td>${docu[i].id_client.description}</td>`);
-            fila.innerHTML += (`<td>${docu[i].description}</td>`);
-            fila.innerHTML += (`<td>${docu[i].value}</td>`);
+            fila.innerHTML += (`<td style="display:none">${info.data[i].id}</td>`);
+            fila.innerHTML += (`<td>${info.data[i].id_type.description}</td>`);
+            fila.innerHTML += (`<td>${info.data[i].id_client.description}</td>`);
+            fila.innerHTML += (`<td>${info.data[i].description}</td>`);
+            fila.innerHTML += (`<td>${info.data[i].value}</td>`);
             fila.innerHTML += (`<td><a target="_self" title="Agregar" class="btn btn-default" onclick="addDocumentstoCasefile(this)"><i class="fa fa-plus"></i></a>
                                 </td>`);
 
@@ -52,19 +48,19 @@ let listDocument = (ruta) => {
         }
         //Paginacion
         let from = document.getElementById('from');
-        from.innerHTML = data1.listDocumentPaginate.from;
+        from.innerHTML = info.from;
         let to = document.getElementById('to');
-        to.innerHTML = data1.listDocumentPaginate.to;
+        to.innerHTML = info.to;
         let total = document.getElementById('total');
-        total.innerHTML = data1.listDocumentPaginate.total;
+        total.innerHTML = info.total;
         let currentPage = document.getElementById('currentPage');
-        currentPage.innerHTML = data1.listDocumentPaginate.current_page;
+        currentPage.innerHTML = info.current_page;
         let hPrev = document.getElementById('hPrev');
-        data1.listDocumentPaginate.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${data1.listDocumentPaginate.prev_page_url}');`),
+        info.prev_page_url ? (hPrev.setAttribute('onclick', `return listDocument('${info.prev_page_url}');`),
                 hPrev.style.visibility = "visible") :
             hPrev.style.visibility = 'hidden';
         let hNext = document.getElementById('hNext');
-        data1.listDocumentPaginate.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${data1.listDocumentPaginate.next_page_url}');`),
+        info.next_page_url ? (hNext.setAttribute('onclick', `return listDocument('${info.next_page_url}');`),
                 hNext.style.visibility = "visible") :
             hNext.style.visibility = "hidden";
     });

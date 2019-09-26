@@ -1,5 +1,10 @@
 @extends('master') @section('content')
 <section class="content">
+    <div class="alert alert-success alert-dismissible" id="alertCasefile" style="display: none">
+        <button id="btnClose" class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
+        <h4><i class="icon fa fa-check"></i>Sistema</h4>
+        <span id="casefileMessage"></span>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box">

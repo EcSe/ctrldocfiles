@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\casefilesDocumentModel;
+use App\Models\casefilesModel;
 use App\Models\mainDocumentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,14 +41,21 @@ class mainDocumentController extends Controller
 
     public function destroy($id)
     {
-        $document = mainDocumentModel::where('id', $id)->first();
-        if ($document) {
-            $fileold = $document->filename;
-            Storage::disk('doc')->delete($fileold);
-            $document->delete();
-            return response()->json('El documento se ha eliminado correctamente');
+        $casefileDocument = casefilesDocumentModel::where('id_document', $id)->first();
+        if ($casefileDocument) {
+            $casefile = casefilesModel::where('id', $casefileDocument->id_casefile)->first();
+            return response()->json('Error: El documento no se puede eliminar, pertenece al
+                                    expediente con descripcion: ' . $casefile->description, 400);
         } else {
-            return response()->json('Ha ocurrido un error');
+            $document = mainDocumentModel::where('id', $id)->first();
+            if ($document) {
+                $fileold = $document->filename;
+                Storage::disk('doc')->delete($fileold);
+                $document->delete();
+                return response()->json('El documento se ha eliminado correctamente',200);
+            } else {
+                return response()->json('Ha ocurrido un error', 500);
+            }
         }
     }
 
@@ -101,6 +110,14 @@ class mainDocumentController extends Controller
     public function listar()
     {
         $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->get();
+        return response()->json($documents);
+    }
+
+    public function listDocumentClient($id)
+    {
+        $casefile = casefilesModel::where('id', $id)->first();
+        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])
+            ->where('id_client', $casefile->id_client)->paginate(10);
         return response()->json($documents);
     }
 

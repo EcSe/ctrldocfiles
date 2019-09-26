@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\casefilesDocumentModel;
 use App\Models\casefilesModel;
 use Illuminate\Http\Request;
 
@@ -23,12 +24,18 @@ class casefilesController extends Controller
 
     public function destroy($id)
     {
-        $casefile = casefilesModel::where('id', $id)->first();
-        if ($casefile) {
-            $casefile->delete();
-            return response()->json('El expediente se ha eliminado con exito');
+        $casefileDocument = casefilesDocumentModel::where('id_casefile', $id)->first();
+        if ($casefileDocument) {
+            $casefile = casefilesModel::where('id', $casefileDocument->id_casefile)->first();
+            return response()->json('Error: El expediente no se puede eliminar, contiene documentos', 400);
         } else {
-            return response()->json('Ha ocurrido un error');
+            $casefile = casefilesModel::where('id', $id)->first();
+            if ($casefile) {
+                $casefile->delete();
+                return response()->json('El expediente se ha eliminado con exito',200);
+            } else {
+                return response()->json('Ha ocurrido un error',500);
+            }
         }
     }
 
@@ -87,7 +94,7 @@ class casefilesController extends Controller
                 return $query->orWhere('id_client', 'like', '%' . $idClient . '%');
             })
             ->paginate(10);
-        return response()->json(['userLevel' => $userNow->type_level,'casefiles' => $casefiles]);
+        return response()->json(['userLevel' => $userNow->type_level, 'casefiles' => $casefiles]);
 
     }
 }

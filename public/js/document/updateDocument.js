@@ -55,6 +55,9 @@ let listDocumentType = () => {
 }
 
 let cargarCampos = () => {
+    listClient();
+    listDocumentState();
+    listDocumentType();
     let init = {
         method: 'GET',
         mode: 'cors'
@@ -102,9 +105,6 @@ let back = () => {
 //#region Eventos
 document.addEventListener('DOMContentLoaded', () => {
     cargarCampos();
-    listClient();
-    listDocumentState();
-    listDocumentType();
 });
 
 frmUpdate.addEventListener('submit', (e) => {

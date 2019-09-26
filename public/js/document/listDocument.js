@@ -95,9 +95,34 @@ let deleteDocument = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/document/${idUser}`, init).then(res => res.json()).then(data => {
-                let row = e.parentNode.parentElement;
-                row.remove()
+            fetch(`/document/${idUser}`, init).then(res => {
+                if (!res.ok) {
+                    let alertDocument = document.getElementById('alertDocument');
+                    alertDocument.className = 'alert alert-danger alert-dismissible';
+                    res.json().then(data => {
+                        let spnDocumentMessage = document.getElementById('documentMessage');
+                        alertDocument.style.display = 'block';
+                        spnDocumentMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertDocument.style.display = 'none';
+                        }, 9000);
+                    });
+                } else {
+                    res.json().then(data => {
+                        let row = e.parentNode.parentElement;
+                        row.remove()
+                        let alertDocument = document.getElementById('alertDocument');
+                        alertDocument.className = 'alert alert-success alert-dismissible';
+                        let spnDocumentMessage = document.getElementById('documentMessage');
+                        alertDocument.style.display = 'block';
+                        spnDocumentMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertDocument.style.display = 'none';
+                        }, 9000);
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
             });
         }
     }

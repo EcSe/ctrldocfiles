@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\userModel;
+use App\Models\casefilesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -74,12 +75,17 @@ class userController extends Controller
 
     public function destroy($id)
     {
+        $casefiles = casefilesModel::where('start_user_id',$id)->first();
+        if($casefiles) {
+            return response()->json('Error: El usuario no se puede eliminar, tiene asignado el 
+                                    expediente con descripcion: '.$casefiles->description,400);
+        }
         $usuario = userModel::where('id', $id)->first();
         if ($usuario) {
             $usuario->delete();
-            return response()->json('El usuario ha sido eliminado con exito');
+            return response()->json('El usuario ha sido eliminado con exito',200);
         } else {
-            return response()->json('Ha ocurrido un error');
+            return response()->json('Ha ocurrido un error',500);
         }
     }
 
