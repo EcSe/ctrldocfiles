@@ -35,7 +35,10 @@ class userController extends Controller
                 ));
             }
         } else {
-            $userDB = userModel::where('login', $id)->first();
+            $userDB = userModel::where([
+                ['login', $id],
+                ['account_state',1]
+            ])->first();
             if (count((array) $userDB) > 0 && password_verify($password, $userDB->password)) {
                 return view('main   ', array(
                     session(['user' => $userDB]),

@@ -50,6 +50,8 @@ let listDocumentType = () => {
 
 let addDocument = (e) => {
     e.preventDefault();
+    let loader = document.getElementById('divLoader');
+    loader.style.display = 'block';
     let frmData = new FormData(frmDocument);
     let init = {
         method: 'POST',
@@ -59,6 +61,7 @@ let addDocument = (e) => {
         frmDocument.reset();
         let alertDocument = document.getElementById('alertDocument');
         let spnDocumentMessage = document.getElementById('documentMessage');
+        loader.style.display = "none"
         alertDocument.style.display = 'block';
         spnDocumentMessage.innerHTML = data;
         setTimeout(() => {

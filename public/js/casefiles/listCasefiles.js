@@ -111,10 +111,6 @@ let deleteCasefile = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            // fetch(`/casefile/${idUser}`, init).then(res => res.json()).then(data => {
-            //     let row = e.parentNode.parentElement;
-            //     row.remove()
-            // });
             fetch(`/casefile/${idUser}`, init).then(res => {
 
                 if (!res.ok) {

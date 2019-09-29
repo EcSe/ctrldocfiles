@@ -1,5 +1,7 @@
-@extends('master') @section('content')
+@extends('master') @section('css')
+<link rel="stylesheet" href="css/loader.css"> @endsection @section('content')
 <section class="content">
+    <div class="lds-hourglass" style="display: none" id="divLoader"></div>
     <div class="alert alert-success alert-dismissible" id="alertDocument" style="display: none">
         <button id="btnClose" class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
         <h4><i class="icon fa fa-check"></i>Sistema</h4>
