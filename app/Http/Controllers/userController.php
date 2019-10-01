@@ -86,7 +86,7 @@ class userController extends Controller
                                     expediente con descripcion: ' . $casefiles->description, 400);
         } else if ($documents) {
             return response()->json('Error: El usuario no se puede eliminar, tiene asignado el
-                                    expediente con descripcion: ' . $documents->description, 400);
+                                    documento con descripcion: ' . $documents->description, 400);
         } else {
             $usuario = userModel::where('id', $id)->first();
             if ($usuario) {
