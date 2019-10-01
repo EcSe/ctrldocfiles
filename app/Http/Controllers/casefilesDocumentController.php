@@ -64,13 +64,13 @@ class casefilesDocumentController extends Controller
     }
 
     public function listPaginate() {
-        $casefilesDocument = casefilesDocumentModel::with(['id_document'])->paginate(10);
+        $casefilesDocument = casefilesDocumentModel::with(['id_document'])->orderBy('id','desc')->paginate(10);
         return response()->json($casefilesDocument);
     }
 
     public function listar()
     {
-        $casefilesDocument = casefilesDocumentModel::with(['id_document'])->get();
+        $casefilesDocument = casefilesDocumentModel::with(['id_document'])->orderBy('id','desc')->get();
         return response()->json($casefilesDocument);
     }
 

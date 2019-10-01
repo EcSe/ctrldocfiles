@@ -17,7 +17,6 @@ let listClient = (ruta) => {
             let fila = document.createElement('tr');
             fila.innerHTML += (`<td style="display:none">${data.listClientPaginate.data[i].id}</td>`);
             fila.innerHTML += (`<td>${data.listClientPaginate.data[i].cif}</td>`);
-            fila.innerHTML += (`<td>${data.listClientPaginate.data[i].code}</td>`);
             fila.innerHTML += (`<td>${data.listClientPaginate.data[i].description}</td>`);
             fila.innerHTML += (`<td>${data.listClientPaginate.data[i].email}</td>`);
             fila.innerHTML += (`<td>${data.listClientPaginate.data[i].type_client.description}</td>`);
@@ -52,7 +51,7 @@ let listClient = (ruta) => {
 };
 
 let deleteClient = (e) => {
-    let idUser = e.parentNode.parentElement.cells[0].innerHTML;
+    let idClient = e.parentNode.parentElement.cells[0].innerHTML;
     let init = {
         method: 'DELETE',
         headers: {
@@ -63,9 +62,34 @@ let deleteClient = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/client/${idUser}`, init).then(res => res.json()).then(data => {
-                let row = e.parentNode.parentElement;
-                row.remove()
+            fetch(`/client/${idClient}`, init).then(res => {
+                if (!res.ok) {
+                    let alertClient = document.getElementById('alertClient');
+                    alertClient.className = 'alert alert-danger alert-dismissible';
+                    res.json().then(data => {
+                        let spnClientMessage = document.getElementById('clientMessage');
+                        alertClient.style.display = 'block';
+                        spnClientMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertClient.style.display = 'none';
+                        }, 9000);
+                    });
+                } else {
+                    res.json().then(data => {
+                        let row = e.parentNode.parentElement;
+                        row.remove()
+                        let alertClient = document.getElementById('alertClient');
+                        alertClient.className = 'alert alert-success alert-dismissible';
+                        let spnClientMessage = document.getElementById('clientMessage');
+                        alertClient.style.display = 'block';
+                        spnClientMessage.innerHTML = data;
+                        setTimeout(() => {
+                            alertClient.style.display = 'none';
+                        }, 9000);
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
             });
         }
     }
@@ -86,7 +110,6 @@ let searchClient = (e) => {
             let fila = document.createElement('tr');
             fila.innerHTML += (`<td style="display:none">${data.clients.data[i].id}</td>`);
             fila.innerHTML += (`<td>${data.clients.data[i].cif}</td>`);
-            fila.innerHTML += (`<td>${data.clients.data[i].code}</td>`);
             fila.innerHTML += (`<td>${data.clients.data[i].description}</td>`);
             fila.innerHTML += (`<td>${data.clients.data[i].email}</td>`);
             fila.innerHTML += (`<td>${data.clients.data[i].type_client.description}</td>`);

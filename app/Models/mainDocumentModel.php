@@ -31,4 +31,9 @@ class mainDocumentModel extends Model
     {
         return $this->hasOne('App\Models\clientModel','id','id_client');
     }
+
+    public function user_upload_id ()
+    {
+        return $this->hasOne('App\Models\userModel','id','user_upload_id');
+    }
 }

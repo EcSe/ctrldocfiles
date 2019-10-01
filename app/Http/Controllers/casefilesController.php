@@ -70,13 +70,13 @@ class casefilesController extends Controller
     public function listPaginate()
     {
         $userNow = session('user');
-        $casefiles = casefilesModel::with(['id_client', 'id_type', 'casefile_state'])->paginate(10);
+        $casefiles = casefilesModel::with(['id_client', 'id_type', 'casefile_state'])->orderBy('id','desc')->paginate(10);
         return response()->json(['userLevel' => $userNow->type_level, 'listCasefilePaginate' => $casefiles]);
     }
 
     public function listar()
     {
-        $casefiles = casefilesModel::with(['id_client', 'id_type', 'casefile_state'])->get();
+        $casefiles = casefilesModel::with(['id_client', 'id_type', 'casefile_state'])->orderBy('id','desc')->get();
         return response()->json($casefiles);
     }
 

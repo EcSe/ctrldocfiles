@@ -1,5 +1,10 @@
 @extends('master') @section('content')
 <section class="content">
+    <div class="alert alert-success alert-dismissible" id="alertClient" style="display: none">
+        <button id="btnClose" class="close" type="button" data-dismiss="alert" aria-hidden="true">x</button>
+        <h4><i class="icon fa fa-check"></i>Sistema</h4>
+        <span id="clientMessage"></span>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
@@ -10,11 +15,8 @@
                 <div class="box-body">
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div>
+                            <div class="col-sm-12">
+                                <a href="{{route('addClient')}}" class="btn btn-primary">Agregar Cliente</a>
                             </div>
                         </div>
                         <div class="row">
@@ -23,7 +25,6 @@
                                     <thead>
                                         <tr>
                                             <th>Cif</th>
-                                            <th>Code</th>
                                             <th>Descripcion</th>
                                             <th>Email</th>
                                             <th>Tipo Cliente</th>
@@ -35,7 +36,6 @@
                                     <tfoot>
                                         <tr>
                                             <th>Cif</th>
-                                            <th>Code</th>
                                             <th>Descripcion</th>
                                             <th>Email</th>
                                             <th>Tipo Cliente</th>
@@ -54,7 +54,7 @@
                                     <input type="search" class="form-control input-sm" id="srchCif" name="srchCif" placeholder="Cif">
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="search" class="form-control input-sm" id="srchCode" name="srchCode" placeholder="Code">
+                                    <input type="search" class="form-control input-sm" id="srchDescription" name="srchDescription" placeholder="Descripcion">
                                 </div>
                                 <div class="col-sm-4">
                                     <input type="search" class="form-control input-sm" id="srchEmail" name="srchEmail" placeholder="Email">

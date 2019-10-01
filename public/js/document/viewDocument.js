@@ -24,7 +24,7 @@ let viewDocument = () => {
         document.getElementById('tdocrel').innerHTML = data.main_doc_id;
         document.getElementById('tlugar').innerHTML = data.place_details_id;
         document.getElementById('tdetallelugar').innerHTML = data.place_details_obs;
-        document.getElementById('tuserupload').innerHTML = data.user_upload_id;
+        document.getElementById('tuserupload').innerHTML = data.user_upload_id.name;
         document.getElementById('testado').innerHTML = data.document_state.description;
     });
 }

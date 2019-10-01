@@ -6,7 +6,6 @@ use App\Models\casefilesDocumentModel;
 use App\Models\casefilesModel;
 use App\Models\mainDocumentModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class mainDocumentController extends Controller
@@ -52,7 +51,7 @@ class mainDocumentController extends Controller
                 $fileold = $document->filename;
                 Storage::disk('doc')->delete($fileold);
                 $document->delete();
-                return response()->json('El documento se ha eliminado correctamente',200);
+                return response()->json('El documento se ha eliminado correctamente', 200);
             } else {
                 return response()->json('Ha ocurrido un error', 500);
             }
@@ -92,7 +91,7 @@ class mainDocumentController extends Controller
 
     public function show($id)
     {
-        $document = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->where('id', $id)->first();
+        $document = mainDocumentModel::with(['document_state', 'id_type', 'id_client', 'user_upload_id'])->where('id', $id)->first();
         if ($document) {
             return response()->json($document);
         } else {
@@ -103,13 +102,14 @@ class mainDocumentController extends Controller
     public function listPaginate()
     {
         $userNow = session('user');
-        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->paginate(10);
+        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->orderBy('id','desc')->paginate(10);
         return response()->json(['userLevel' => $userNow->type_level, 'listDocumentPaginate' => $documents]);
     }
 
     public function listar()
     {
-        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->get();
+        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->orderBy('id','desc')
+            ->get();
         return response()->json($documents);
     }
 
@@ -117,20 +117,22 @@ class mainDocumentController extends Controller
     {
         $casefile = casefilesModel::where('id', $id)->first();
         $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])
-            ->where('id_client', $casefile->id_client)->paginate(10);
+            ->where('id_client', $casefile->id_client)->orderBy('id','desc')
+            ->paginate(10);
         return response()->json($documents);
     }
 
     public function search(Request $request)
     {
         $userNow = session('user');
-        $code = $request->input('srchCode');
+        $client = $request->input('srchClient');
         $descripcion = $request->input('srchDescription');
         $date = $request->input('srchDate');
 
-        $documents = DB::table('tb_main_document')
-            ->when($code, function ($query) use ($code) {
-                return $query->orWhere('document_code', 'like', '%' . $code . '%');
+        $documents = mainDocumentModel::with('document_state', 'id_type', 'id_client')
+            ->when($client, function ($query) use ($client) {
+                //return $query->orWhere('id_client', 'like', '%' . $client . '%');
+                return $query->orWhere('id_client', '=', $client);
             })
             ->when($descripcion, function ($query) use ($descripcion) {
                 return $query->orWhere('description', 'like', '%' . $descripcion . '%');

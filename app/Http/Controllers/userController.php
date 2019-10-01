@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\userModel;
 use App\Models\casefilesModel;
+use App\Models\mainDocumentModel;
+use App\Models\userModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,7 @@ class userController extends Controller
         } else {
             $userDB = userModel::where([
                 ['login', $id],
-                ['account_state',1]
+                ['account_state', 1],
             ])->first();
             if (count((array) $userDB) > 0 && password_verify($password, $userDB->password)) {
                 return view('main   ', array(
@@ -78,17 +79,22 @@ class userController extends Controller
 
     public function destroy($id)
     {
-        $casefiles = casefilesModel::where('start_user_id',$id)->first();
-        if($casefiles) {
-            return response()->json('Error: El usuario no se puede eliminar, tiene asignado el 
-                                    expediente con descripcion: '.$casefiles->description,400);
-        }
-        $usuario = userModel::where('id', $id)->first();
-        if ($usuario) {
-            $usuario->delete();
-            return response()->json('El usuario ha sido eliminado con exito',200);
+        $documents = mainDocumentModel::where('user_upload_id', $id)->first();
+        $casefiles = casefilesModel::where('start_user_id', $id)->first();
+        if ($casefiles) {
+            return response()->json('Error: El usuario no se puede eliminar, tiene asignado el
+                                    expediente con descripcion: ' . $casefiles->description, 400);
+        } else if ($documents) {
+            return response()->json('Error: El usuario no se puede eliminar, tiene asignado el
+                                    expediente con descripcion: ' . $documents->description, 400);
         } else {
-            return response()->json('Ha ocurrido un error',500);
+            $usuario = userModel::where('id', $id)->first();
+            if ($usuario) {
+                $usuario->delete();
+                return response()->json('El usuario ha sido eliminado con exito', 200);
+            } else {
+                return response()->json('Ha ocurrido un error', 500);
+            }
         }
     }
 
@@ -111,7 +117,6 @@ class userController extends Controller
 
     public function show($id)
     {
-        //$usr = userModel::where('id', $id)->first();
         $usr = userModel::with(['type_level', 'account_state'])->where('id', $id)->first();
         if ($usr) {
             return response()->json($usr);
@@ -122,12 +127,12 @@ class userController extends Controller
     public function listPaginate()
     {
         $userNow = session('user');
-        $users = userModel::with(['account_state'])->paginate(10);
-        return response()->json(['userLevel' => $userNow->type_level,'listUserPaginate' => $users]);
+        $users = userModel::with(['account_state'])->orderBy('id','desc')->paginate(10);
+        return response()->json(['userLevel' => $userNow->type_level, 'listUserPaginate' => $users]);
     }
     public function listar()
     {
-        $users = userModel::with(['account_state'])->get();
+        $users = userModel::with(['account_state'])->orderBy('id','desc')->get();
         return response()->json($users);
     }
 
@@ -140,13 +145,13 @@ class userController extends Controller
     public function search(Request $request)
     {
         $userNow = session('user');
-        $code = $request->input('srchCode', null);
+        $login = $request->input('srchLogin', null);
         $name = $request->input('srchName', null);
         $email = $request->input('srchEmail', null);
 
         $users = DB::table('tb_users')
-            ->when($code, function ($query) use ($code) {
-                return $query->orWhere('code', 'like', '%' . $code . '%');
+            ->when($login, function ($query) use ($login) {
+                return $query->orWhere('login', 'like', '%' . $login . '%');
             })
             ->when($name, function ($query) use ($name) {
                 return $query->orWhere('name', 'like', '%' . $name . '%');
@@ -155,6 +160,6 @@ class userController extends Controller
                 return $query->orWhere('email', 'like', '%' . $email . '%');
             })
             ->paginate(10);
-        return response()->json(['userLevel' => $userNow->type_level, 'users' =>$users]);
+        return response()->json(['userLevel' => $userNow->type_level, 'users' => $users]);
     }
 }

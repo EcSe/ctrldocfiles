@@ -16,7 +16,7 @@ let listUser = (ruta) => {
         for (let i = 0; i < data.listUserPaginate.data.length; i++) {
             let fila = document.createElement('tr');
             fila.innerHTML += (`<td style="display:none">${data.listUserPaginate.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.listUserPaginate.data[i].login}</td>`);
             fila.innerHTML += (`<td>${data.listUserPaginate.data[i].name}</td>`);
             fila.innerHTML += (`<td>${data.listUserPaginate.data[i].email}</td>`);
             fila.innerHTML += (`<td>${data.listUserPaginate.data[i].description}</td>`);
@@ -66,7 +66,7 @@ let searchUser = (e) => {
         for (let i = 0; i < data.users.data.length; i++) {
             let fila = document.createElement('tr');
             fila.innerHTML += (`<td style="display:none">${data.users.data[i].id}</td>`);
-            fila.innerHTML += (`<td>${data.users.data[i].code}</td>`);
+            fila.innerHTML += (`<td>${data.users.data[i].login}</td>`);
             fila.innerHTML += (`<td>${data.users.data[i].name}</td>`);
             fila.innerHTML += (`<td>${data.users.data[i].email}</td>`);
             fila.innerHTML += (`<td>${data.users.data[i].description}</td>`);
