@@ -63,18 +63,27 @@ class userController extends Controller
 
     public function agregar(Request $request)
     {
-        $user = new userModel();
-        $user->code = $request->input('code');
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->description = $request->input('description');
-        $user->login = $request->input('login');
-        $user->password = password_hash($request->input('password'), PASSWORD_DEFAULT);
-        $user->keyaccess = $request->input('keyaccess');
-        $user->type_level = $request->input('typeLevel');
-        $user->account_state = $request->input('accountState');
-        $user->save();
-        return response()->json('El usuario ' . $user->login . ' ha sido agregado correctamente');
+        $userExist = userModel::where('email', $request->input('email'))
+            ->orWhere('login', $request->input('login'))
+            ->first();
+        if ($userExist) {
+            return response()->json('El email o ID ya ha sido registrado', 400);
+        } else {
+            $user = new userModel();
+            $user->code = $request->input('code');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->description = $request->input('description');
+            $user->login = $request->input('login');
+            $user->password = password_hash($request->input('password'), PASSWORD_DEFAULT);
+            $user->keyaccess = $request->input('keyaccess');
+            $user->type_level = $request->input('typeLevel');
+            $user->account_state = $request->input('accountState');
+            $user->save();
+            return response()->json('El usuario ' . $user->login . ' ha sido agregado correctamente', 200);
+
+        }
+
     }
 
     public function destroy($id)
@@ -115,6 +124,30 @@ class userController extends Controller
         return response()->json('El usuario ' . $userUpdate->login . ' ha sido actualizado');
     }
 
+    public function updateProfile(Request $request, $id)
+    {
+        $profileUpdate = userModel::where('id', $id)->first();
+        if ($request->input('email') == $profileUpdate->email) {
+            $profileUpdate->name = $request->input('name');
+            $profileUpdate->description = $request->input('description');
+            $request->input('password') ? $profileUpdate->password = password_hash($request->input('password'), PASSWORD_DEFAULT) : false;
+            $profileUpdate->save();
+            return response()->json('El perfil se ha actualizado correctamente', 200);
+        } else {
+            $checkMail = userModel::where('email', $request->input('email'))->first();
+            if ($checkMail) {
+                return response()->json('El email ya existe en el sistema, ingresar otro', 400);
+            } else {
+                $profileUpdate->name = $request->input('name');
+                $profileUpdate->description = $request->input('description');
+                $profileUpdate->email = $request->input('email');
+                $request->input('password') ? $profileUpdate->password = password_hash($request->input('password'), PASSWORD_DEFAULT) : false;
+                $profileUpdate->save();
+                return response()->json('El perfil se ha actualizado correctamente', 200);
+            }
+        }
+    }
+
     public function show($id)
     {
         $usr = userModel::with(['type_level', 'account_state'])->where('id', $id)->first();
@@ -127,12 +160,12 @@ class userController extends Controller
     public function listPaginate()
     {
         $userNow = session('user');
-        $users = userModel::with(['account_state'])->orderBy('id','desc')->paginate(10);
+        $users = userModel::with(['account_state'])->orderBy('id', 'desc')->paginate(10);
         return response()->json(['userLevel' => $userNow->type_level, 'listUserPaginate' => $users]);
     }
     public function listar()
     {
-        $users = userModel::with(['account_state'])->orderBy('id','desc')->get();
+        $users = userModel::with(['account_state'])->orderBy('id', 'desc')->get();
         return response()->json($users);
     }
 
@@ -161,5 +194,19 @@ class userController extends Controller
             })
             ->paginate(10);
         return response()->json(['userLevel' => $userNow->type_level, 'users' => $users]);
+    }
+
+    public function userProfileData()
+    {
+        $userNow = session('user');
+        $nroDocumentsCreated = mainDocumentModel::where('user_upload_id', $userNow->id)->count();
+        $nroCasefilesOpen = casefilesModel::where('start_user_id', $userNow->id)->count();
+        $nroCasefileClosed = casefilesModel::where('finish_user_id', $userNow->id)->count();
+
+        return response()->json([
+            'nroDocuments' => $nroDocumentsCreated,
+            'nroCasefilesOpen' => $nroCasefilesOpen,
+            'nroCasefilesClosed' => $nroCasefileClosed,
+        ]);
     }
 }

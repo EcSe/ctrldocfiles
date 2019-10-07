@@ -58,13 +58,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <img src="https://robohash.org/{{$user->id}}?size=80x80" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ $user->name}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <img src="https://robohash.org/{{$user->id}}?size=180x180" class="img-circle" alt="User Image">
 
                                     <p>
                                         {{ $user->name}} - {{ $user->description}}
@@ -89,12 +89,12 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                        <a href="{{route('usrPerfil')}}" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
                                         <form action="{{route('logout')}}" method="POST">
                                             @csrf
-                                            <input type="submit" value="Sign out" class="btn btn-default btn-flat">
+                                            <input type="submit" value="Salir" class="btn btn-default btn-flat">
                                         </form>
                                     </div>
                                 </li>
@@ -112,7 +112,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="https://robohash.org/{{$user->id}}?size=180x180" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p>{{$user->name}}</p>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
+                <!-- <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -129,7 +129,7 @@
                             </button>
                         </span>
                     </div>
-                </form>
+                </form> -->
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
@@ -207,7 +207,7 @@
                     <small>Control panel</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="{{route('main')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="{{route('main')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
                     <li class="active"></li>
                 </ol>
             </section>

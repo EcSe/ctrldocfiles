@@ -76,7 +76,7 @@ class casefilesDocumentController extends Controller
 
     public function show($id)
     {
-        $casefilesDocument = casefilesDocumentModel::with(['id_document'])->where('id_casefile', $id)->paginate(10);
+        $casefilesDocument = casefilesDocumentModel::with(['id_document.id_client','id_document.id_type'])->where('id_casefile', $id)->paginate(10);
         return response()->json($casefilesDocument);
     }
 

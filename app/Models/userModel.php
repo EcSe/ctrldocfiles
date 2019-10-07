@@ -15,6 +15,8 @@ class userModel extends Model
         'type_level', 'account_state',
     ];
 
+    protected $hidden = ['password'];
+
     public function type_level()
     {
         return $this->hasOne('App\Models\userLevelModel','id','type_level');

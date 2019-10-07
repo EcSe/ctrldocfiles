@@ -39,16 +39,33 @@ let addUser = (e) => {
         method: "POST",
         body: frmData,
     }
-    fetch('/user', init).then(res => res.json()).then(data => {
-        frmAddUser.reset();
-        let alertUser = document.getElementById('alertUser');
-        let spnUserMessage = document.getElementById('userMessage');
-        alertUser.style.display = 'block';
-        spnUserMessage.innerHTML = data;
-        setTimeout(() => {
-            alertUser.style.display = 'none';
-        }, 9000);
-
+    fetch('/user', init).then(res => {
+        if (!res.ok) {
+            let alertUser = document.getElementById('alertUser');
+            alertUser.className = 'alert alert-danger alert-dismissible';
+            res.json().then(data => {
+                let spnUserMessage = document.getElementById('userMessage');
+                alertUser.style.display = 'block';
+                spnUserMessage.innerHTML = data;
+                setTimeout(() => {
+                    alertUser.style.display = 'none';
+                }, 9000);
+            })
+        } else {
+            res.json().then(data => {
+                frmAddUser.reset();
+                let alertUser = document.getElementById('alertUser');
+                alertUser.className = 'alert alert-success alert-dismissible';
+                let spnUserMessage = document.getElementById('userMessage');
+                alertUser.style.display = 'block';
+                spnUserMessage.innerHTML = data;
+                setTimeout(() => {
+                    alertUser.style.display = 'none';
+                }, 9000);
+            })
+        }
+    }).catch(err => {
+        console.log(err);
     });
 };
 

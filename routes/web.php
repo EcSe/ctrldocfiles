@@ -39,6 +39,8 @@ Route::delete('/user/{id}', 'userController@destroy');
 Route::post('/user/{id}', 'userController@update');
 Route::post('/searchUser','userController@search');
 Route::get('/disk','userController@disco');
+Route::get('/dataProfile','userController@userProfileData');
+Route::post('/profile/{id}','userController@updateProfile');
 
 Route::get('/add', function () {
     return view('usuario.addUser');
@@ -52,6 +54,9 @@ Route::get('/usrview', function () {
 Route::get('/usredit', function () {
     return view('usuario.updateUser');
 });
+Route::get('/usrPerfil', function () {
+    return view('usuario.userPerfil');
+})->name('usrPerfil');
 
 //===================
 //Rutas Cliente

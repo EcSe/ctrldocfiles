@@ -80,7 +80,6 @@
                                             <th>Tipo Documento</th>
                                             <th>Cliente</th>
                                             <th>Descripcion</th>
-                                            <th>Valor</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -91,7 +90,6 @@
                                             <th>Tipo Documento</th>
                                             <th>Cliente</th>
                                             <th>Descripcion</th>
-                                            <th>Valor</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -136,7 +134,6 @@
                                         <th>Tipo Documento</th>
                                         <th>Cliente</th>
                                         <th>Descripcion</th>
-                                        <th>Valor</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -147,7 +144,6 @@
                                         <th>Tipo Documento</th>
                                         <th>Cliente</th>
                                         <th>Descripcion</th>
-                                        <th>Valor</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </tfoot>

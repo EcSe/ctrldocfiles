@@ -40,7 +40,6 @@ let listDocument = (ruta) => {
             fila.innerHTML += (`<td>${info.data[i].id_type.description}</td>`);
             fila.innerHTML += (`<td>${info.data[i].id_client.description}</td>`);
             fila.innerHTML += (`<td>${info.data[i].description}</td>`);
-            fila.innerHTML += (`<td>${info.data[i].value}</td>`);
             fila.innerHTML += (`<td><a target="_self" title="Agregar" class="btn btn-default" onclick="addDocumentstoCasefile(this)"><i class="fa fa-plus"></i></a>
                                 </td>`);
 
@@ -105,10 +104,9 @@ let listDocumentsIntoCasefile = (ruta) => {
             fila.innerHTML += (`<td style="display:none">${data.data[i].id}</td>`);
             fila.innerHTML += (`<td style="display:none">${data.data[i].id_document.id}</td>`);
             fila.innerHTML += (`<td style="display:none">${data.data[i].id_document.filename}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_document.id_type}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_document.id_client}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].id_document.id_type.description}</td>`);
+            fila.innerHTML += (`<td>${data.data[i].id_document.id_client.description}</td>`);
             fila.innerHTML += (`<td>${data.data[i].id_document.description}</td>`);
-            fila.innerHTML += (`<td>${data.data[i].id_document.value}</td>`);
             fila.innerHTML += (`<td><a target="_self" title="Eliminar" class="btn btn-default" onclick="deleteDocumentIntoCasefile(this)"><i class="fa fa-trash"></i></a>
                                 <button title="Ver" class="btn btn-default" onclick="verPdf(this)" data-toggle="modal" data-target="#modal-default"><i class="fa fa-folder-open"></i></button></td>`);
 
