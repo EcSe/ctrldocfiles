@@ -21,6 +21,7 @@ let viewDocument = () => {
         document.getElementById('tperiodin').innerHTML = data.period_start_date;
         document.getElementById('tperiodfin').innerHTML = data.period_finish_date;
         document.getElementById('tvalue').innerHTML = data.value;
+        document.getElementById('tvalue1').innerHTML = data.value1;
         document.getElementById('tdocrel').innerHTML = data.main_doc_id;
         document.getElementById('tlugar').innerHTML = data.place_details_id;
         document.getElementById('tdetallelugar').innerHTML = data.place_details_obs;

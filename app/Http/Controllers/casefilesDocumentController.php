@@ -28,7 +28,7 @@ class casefilesDocumentController extends Controller
         }
     }
 
-    public function agregarDocumentIntoCasefile(Request $request    )
+    public function agregarDocumentIntoCasefile(Request $request)
     {
         $document = new mainDocumentModel();
         $document->id_type = $request->input('id_type');

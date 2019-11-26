@@ -79,7 +79,7 @@ let updateUser = (e) => {
 
 let back = () => {
 
-    location.href = "/list";
+    location.href = `${appurl}/list`;
 };
 
 //#region Eventos

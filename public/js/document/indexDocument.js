@@ -25,7 +25,7 @@ let indexDocument = () => {
                 alertIndex.className = 'alert alert-success alert-dismissible';
                 alertIndex.style.display = 'block';
                 spnMessage.innerHTML = data;
-                setTimeout(function() { //Recordar mostraba error porque no enviaba error para mostrar
+                setTimeout(function() { /*Mostraba error porque el controlador no enviaba error para mostrar*/
                     alertIndex.style.display = 'none';
                 }, 9000);
             });

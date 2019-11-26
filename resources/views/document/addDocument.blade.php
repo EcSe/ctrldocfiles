@@ -119,10 +119,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-4">
-                                    <label for="main_doc_id" class="control-label">ID Main Doc</label>
+                                    <label for="value" class="control-label">Valor 1</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" id="main_doc_id" name="main_doc_id" class="form-control">
+                                    <input type="number" step="any" id="value1" name="value1" class="form-control" placeholder="0,00">
                                 </div>
                             </div>
                         </div>
@@ -157,6 +157,16 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select id="document_state" name="document_state" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label for="main_doc_id" class="control-label">ID Main Doc</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" id="main_doc_id" name="main_doc_id" class="form-control">
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,7 @@
     <div class="row">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Ver Usuario</h3>
+                <h3 class="box-title">Ver Documento</h3>
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -47,6 +47,10 @@
                         <tr>
                             <th>Valor:</th>
                             <td id="tvalue"></td>
+                        </tr>
+                        <tr>
+                            <th>Valor 1:</th>
+                            <td id="tvalue1"></td>
                         </tr>
                         <tr>
                             <th>Documento Relacionado:</th>

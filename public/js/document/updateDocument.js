@@ -71,6 +71,7 @@ let cargarCampos = () => {
         document.getElementById('period_start_date').value = data.period_start_date;
         document.getElementById('period_finish_date').value = data.period_finish_date;
         document.getElementById('value').value = data.value;
+        document.getElementById('value1').value = data.value1;
         document.getElementById('main_doc_id').value = data.main_doc_id;
         document.getElementById('place_details_id').value = data.place_details_id;
         document.getElementById('place_details_obs').value = data.place_details_obs;
@@ -98,8 +99,7 @@ let updateDocument = (e) => {
 };
 
 let back = () => {
-    // hrfBack.click();
-    location.href = "http://ctrldocfiles.com.devel/ld";
+    location.href = `${appurl}/ld`;
 };
 
 //#region Eventos

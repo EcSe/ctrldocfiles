@@ -28,6 +28,7 @@ class mainDocumentController extends Controller
         $document->period_start_date = $request->input('period_start_date');
         $document->period_finish_date = $request->input('period_finish_date');
         $document->value = $request->input('value');
+        $document->value1 = $request->input('value1');
         $document->main_doc_id = $request->input('main_doc_id');
         $document->place_details_id = $request->input('place_details_id', null);
         $document->place_details_obs = $request->input('place_details_obs', null);
@@ -79,6 +80,7 @@ class mainDocumentController extends Controller
         $documentUpdate->period_start_date = $request->input('period_star_date');
         $documentUpdate->period_finish_date = $request->input('period_finish_date');
         $documentUpdate->value = $request->input('value');
+        $documentUpdate->value1 = $request->input('value1');
         $documentUpdate->main_doc_id = $request->input('main_doc_id');
         $documentUpdate->place_details_id = $request->input('place_details_id');
         $documentUpdate->place_details_obs = $request->input('place_details_obs');
@@ -271,9 +273,9 @@ class mainDocumentController extends Controller
                         continue;
                     }
                     $filepath = $path . '/' . $file;
-                    $anexando = $this->indexarDocument($filepath);
-                    if($anexando['code'] !== 200){
-                        return response()->json($anexando['msg'],$anexando['code']);
+                    $indexando = $this->indexarDocument($filepath);
+                    if($indexando['code'] !== 200){
+                        return response()->json($indexando['msg'],$indexando['code']);
                     }
                     continue;
                 }

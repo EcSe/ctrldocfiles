@@ -13,7 +13,7 @@ class mainDocumentModel extends Model
     protected $fillable = [
         'id_type', 'id_client', 'document_code', 'description', 'filename',
         'document_date', 'period_start_date', 'period_finish_date', 'value',
-        'main_doc_id', 'place_details_id', 'place_details_obs', 'user_upload_id',
+        'value1','main_doc_id', 'place_details_id', 'place_details_obs', 'user_upload_id',
         'document_state',
     ];
 
