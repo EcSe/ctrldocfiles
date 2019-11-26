@@ -8,7 +8,7 @@ let listClient = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/client', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client`, init).then(res => res.json()).then(data => {
         for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -23,7 +23,7 @@ let listDocumentState = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentState', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/documentState`, init).then(res => res.json()).then(data => {
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -38,7 +38,7 @@ let listDocumentType = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentType', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/documentType`, init).then(res => res.json()).then(data => {
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -57,7 +57,7 @@ let addDocument = (e) => {
         method: 'POST',
         body: frmData
     }
-    fetch('/document', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/document`, init).then(res => res.json()).then(data => {
         frmDocument.reset();
         let alertDocument = document.getElementById('alertDocument');
         let spnDocumentMessage = document.getElementById('documentMessage');

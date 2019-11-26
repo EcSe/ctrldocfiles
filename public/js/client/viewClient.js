@@ -6,7 +6,7 @@ let viewClient = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/client/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('tid').innerHTML = data.id;
         document.getElementById('tcif').innerHTML = data.cif;
         document.getElementById('tcodigo').innerHTML = data.code;

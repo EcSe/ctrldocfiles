@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class userModel extends Model
+class userModel extends Model 
 {
+
     protected $table = 'tb_users';
     public $incrementing = true;
     public $timestamps = false;
@@ -19,12 +21,12 @@ class userModel extends Model
 
     public function type_level()
     {
-        return $this->hasOne('App\Models\userLevelModel','id','type_level');
+        return $this->hasOne('App\Models\userLevelModel', 'id', 'type_level');
     }
 
     public function account_state()
     {
-        return $this->hasOne('App\Models\accountStateModel','id','account_state');
+        return $this->hasOne('App\Models\accountStateModel', 'id', 'account_state');
     }
 
 }

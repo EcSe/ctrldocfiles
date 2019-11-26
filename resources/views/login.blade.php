@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="css/login.css">
     <title>Document</title>
 </head>
+@php $ruta = config('app.url'); @endphp
 
-<body>
+<body style="background-image: url('{{$ruta}}/img/backgroundImage.jpg');">
     <div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Tabs Titles -->
@@ -18,18 +19,16 @@
             <form action="{{route('main')}}" method="POST">
                 @csrf
                 <input type="text" id="id" class="fadeIn second" name="id" placeholder="Ingresar Usuario">
-                <input type="password" id="password" class="fadeIn third" name="password"
-                    placeholder="Ingresar Contraseña">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Ingresar Contraseña">
                 <input type="submit" class="fadeIn fourth" id="btnIngresar" name="btnIngresar" value="Ingresar">
             </form>
             <div class="row">
                 <div class="col-md-12">
-                    @if(session('aviso'))
-                    {{session('aviso')}}
-                    @endif
+                    @if(session('aviso')) {{session('aviso')}} @endif
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

@@ -7,7 +7,7 @@ let addClient = (e) => {
         method: "POST",
         body: frmData,
     }
-    fetch('/client', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client`, init).then(res => res.json()).then(data => {
         frmAddClient.reset();
         let alertClient = document.getElementById('alertClient');
         let spnClientMessage = document.getElementById('clientMessage');

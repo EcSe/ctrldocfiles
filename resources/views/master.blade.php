@@ -158,6 +158,7 @@
                         <ul class="treeview-menu">
                             <li><a href="{{route('addDocument')}}"><i class="fa fa-plus"></i>Nuevo</a></li>
                             <li><a href="{{route('listDocument')}}"><i class="fa fa-file"></i>Listar</a></li>
+                            <li><a href="{{route('indexView')}}"><i class="fa fa-file"></i>Indexar</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -268,6 +269,10 @@
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <!-- <script src="dist/js/pages/dashboard.js"></script> -->
+    @php $ruta = config('app.url'); @endphp
+    <script>
+        let appurl = '{!!$ruta!!}'
+    </script>
     @yield('scripts')
 </body>
 

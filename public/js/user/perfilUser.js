@@ -7,8 +7,8 @@ let userProfile = () => {
         mode: 'cors'
     }
     Promise.all([
-        fetch(`/user/${id}`, init).then(res => res.json()),
-        fetch('dataProfile', init).then(res => res.json())
+        fetch(`${appurl}/user/${id}`, init).then(res => res.json()),
+        fetch(`${appurl}/dataProfile`, init).then(res => res.json())
     ]).then(matriz => {
         let data = matriz[0];
         let data1 = matriz[1];
@@ -33,10 +33,9 @@ let updateProfile = (e) => {
     let frmData = new FormData(frmUserProfile);
     let init = {
         method: 'post',
-        mode: 'cors',
         body: frmData
     };
-    fetch(`/profile/${id}`, init).then(res => {
+    fetch(`${appurl}/profile/${id}`, init).then(res => {
         if (!res.ok) {
             let alertUserProfile = document.getElementById('alertUserProfile');
             alertUserProfile.className = 'alert alert-danger alert-dismissible';

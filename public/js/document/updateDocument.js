@@ -14,7 +14,7 @@ let listClient = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/client', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client`, init).then(res => res.json()).then(data => {
         for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -29,7 +29,7 @@ let listDocumentState = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentState', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/documentState`, init).then(res => res.json()).then(data => {
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -44,7 +44,7 @@ let listDocumentType = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentType', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/documentType`, init).then(res => res.json()).then(data => {
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -62,7 +62,7 @@ let cargarCampos = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/document/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/document/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('id_type').value = data.id_type.id;
         document.getElementById('id_client').value = data.id_client.id;
         document.getElementById('document_code').value = data.document_code;
@@ -86,7 +86,7 @@ let updateDocument = (e) => {
         body: frmData
     };
 
-    fetch(`/document/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/document/${id}`, init).then(res => res.json()).then(data => {
         let alertDocumentUpdate = document.getElementById('alertDocumentUpdate');
         let spnDocumentMessageUpdate = document.getElementById('documentMessageUpdate');
         alertDocumentUpdate.style.display = 'block';

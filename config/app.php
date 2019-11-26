@@ -137,7 +137,7 @@ return [
     */
 
     'providers' => [
-
+        Barryvdh\Cors\ServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */

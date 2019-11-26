@@ -6,7 +6,7 @@ let viewCasefile = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/casefile/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/casefile/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('tid').innerHTML = data.id;
         document.getElementById('tclient').innerHTML = data.id_client.description;
         document.getElementById('tcasetype').innerHTML = data.id_type.description;
@@ -23,8 +23,7 @@ let viewCasefile = () => {
 
 let listDocument = (ruta) => {
     let rutafetch;
-    //ruta ? rutafetch = ruta : rutafetch = '/documentPaginate';
-    ruta ? rutafetch = ruta : rutafetch = `/documentclient/${id}`;
+    ruta ? rutafetch = ruta : rutafetch = `${appurl}/documentclient/${id}`;
     let init = {
         method: 'GET',
         mode: 'cors'
@@ -80,7 +79,7 @@ let addDocumentstoCasefile = (e) => {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     };
-    fetch('casefiledocument', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/casefiledocument`, init).then(res => res.json()).then(data => {
         listDocumentsIntoCasefile();
         console.log(data);
     });
@@ -89,7 +88,7 @@ let addDocumentstoCasefile = (e) => {
 
 let listDocumentsIntoCasefile = (ruta) => {
     let rutafetch;
-    ruta ? rutafetch = ruta : rutafetch = `/casefiledocument/${id}`;
+    ruta ? rutafetch = ruta : rutafetch = `${appurl}/casefiledocument/${id}`;
     let init = {
         method: 'get',
         mode: 'cors'
@@ -148,7 +147,7 @@ let deleteDocumentIntoCasefile = (e) => {
         },
         mode: 'cors'
     };
-    fetch(`/casefiledocument/${idCasefileDocument}`, init).then(res => res.json())
+    fetch(`${appurl}/casefiledocument/${idCasefileDocument}`, init).then(res => res.json())
         .then(data => {
             let row = e.parentNode.parentElement;
             row.remove();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\casefilesDocumentModel;
 use App\Models\casefilesModel;
+use App\Models\clientModel;
 use App\Models\mainDocumentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -102,13 +103,13 @@ class mainDocumentController extends Controller
     public function listPaginate()
     {
         $userNow = session('user');
-        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->orderBy('id','desc')->paginate(10);
+        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->orderBy('id', 'desc')->paginate(10);
         return response()->json(['userLevel' => $userNow->type_level, 'listDocumentPaginate' => $documents]);
     }
 
     public function listar()
     {
-        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->orderBy('id','desc')
+        $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])->orderBy('id', 'desc')
             ->get();
         return response()->json($documents);
     }
@@ -117,7 +118,7 @@ class mainDocumentController extends Controller
     {
         $casefile = casefilesModel::where('id', $id)->first();
         $documents = mainDocumentModel::with(['document_state', 'id_type', 'id_client'])
-            ->where('id_client', $casefile->id_client)->orderBy('id','desc')
+            ->where('id_client', $casefile->id_client)->orderBy('id', 'desc')
             ->paginate(10);
         return response()->json($documents);
     }
@@ -142,5 +143,146 @@ class mainDocumentController extends Controller
             })
             ->paginate(10);
         return response()->json(['userLevel' => $userNow->type_level, 'documents' => $documents]);
+    }
+
+    public function indexarDocument($fileRoute)
+    {
+        $user = session('user');
+        $filename = pathinfo($fileRoute)['basename'];
+        $filenameBase = pathinfo($filename)['filename'];
+        $extension = pathinfo($filename)['extension'];
+        if ($extension !== 'pdf') {
+            $resp = [
+                'code' => 400,
+                'msg' => 'El archivo tiene que ser PDF. Archivo: '.$filenameBase
+            ];
+            return $resp;
+        }
+        $data = explode('_', $filenameBase);
+        if (count($data) !== 5) {
+            $resp = [
+                'code' => 400,
+                'msg' => 'El nombre del documento no tiene el formato adecuado. Archivo: '.$filenameBase
+            ];
+            return $resp;
+        }
+        $codeClient = $data[0];
+        $serial = $data[1];
+        $dateCount = $data[2];
+        $copyBlack = $data[3];
+        $copyColor = $data[4];
+
+        //Validamos si el formato de la fecha es correcta
+        if (strlen($dateCount) !== 8) {
+            $resp = [
+                'code' => 400,
+                'msg' => 'El formato de la fecha no es correcta. Archivo: '.$filenameBase
+            ];
+            return $resp;
+        }
+        $arrayDate = str_split($dateCount, 2);
+        $day = $arrayDate[0];
+        $month = $arrayDate[1];
+        $year = $arrayDate[2] . $arrayDate[3];
+        $stringToDate = strtotime($year . $month . $day);
+        $dateFormat = date('Y-m-d', $stringToDate);
+
+        //Validamos los datos del nombre del documento
+        $client = clientModel::where('code', $codeClient)->first();
+        if (!$client) {
+            $resp = [
+                'code' => 400,
+                'msg' => 'El codigo del cliente no existe. Archivo: '.$filenameBase
+            ];
+            return $resp;
+        }
+
+        $isDocumentExist = mainDocumentModel::where('filename', $filename)->first();
+        if ($isDocumentExist) {
+            $resp = [
+                'code' => 400,
+                'msg' => 'Ya existe un documento creado con ese nombre. Archivo: '.$filenameBase
+            ];
+            return $resp;
+        }
+
+        //Creamos el documento
+        $document = new mainDocumentModel();
+        $document->id_type = 9;
+        $document->id_client = $client->id;
+        $document->description = 'Documento de contador para ' . $client->description;
+        rename($fileRoute, '/Users/elvinsalinasespinoza/ArchivosPrueba/' . $filename);
+        $document->filename = $filename;
+        $document->document_date = $dateFormat;
+        $document->value = $copyBlack;
+        $document->value1 = $copyColor;
+        $document->user_upload_id = $user->id;
+        $document->document_state = 1;
+        $document->save();
+
+        //Creamos el expediente
+        $isCasefileExist = casefilesModel::where([
+            ['description', '=', 'CONTADORES'],
+            ['id_client', $client->id],
+        ])->first();
+        $documentCreated = mainDocumentModel::where('filename', $filename)->first();
+        if ($isCasefileExist) {
+            $casefileDocument = new casefilesDocumentModel();
+            $casefileDocument->id_casefile = $isCasefileExist->id;
+            $casefileDocument->id_document = $documentCreated->id;
+            $casefileDocument->description = '';
+            $casefileDocument->save();
+        } else {
+            //Creamos un nuevo expediente
+            $casefile = new casefilesModel();
+            $casefile->id_client = $client->id;
+            $casefile->id_type = 9;
+            $casefile->description = 'CONTADORES';
+            $casefile->start_date = now();
+            $casefile->start_user_id = $user->id;
+            $casefile->casefile_state = 1;
+            $casefile->save();
+
+            //Creamos un nuevo expediente-documento
+            $casefileCreated = casefilesModel::where([
+                ['description', '=', 'CONTADORES'],
+                ['id_client', $client->id],
+            ])->first();
+            $casefileDocument = new casefilesDocumentModel();
+            $casefileDocument->id_casefile = $casefileCreated->id;
+            $casefileDocument->id_document = $documentCreated->id;
+            $casefileDocument->description = '';
+            $casefileDocument->save();
+        }    
+        $resp = [
+            'code' => 200,
+            'msg' => 'El documento ha sido subido satisfactoriamente. Archivo: '.$filenameBase
+        ];
+        return $resp;    
+    }
+
+    public function pruebaScanDir()
+    {
+        $path = '/Users/elvinsalinasespinoza/PruebaIndex';
+        if (is_dir($path)) {
+            if ($dh = opendir($path)) {
+                while (false !== ($file = readdir($dh))) {
+                    if (substr($file, 0, 2) !== '00') {
+                        continue;
+                    }
+                    $filepath = $path . '/' . $file;
+                    $anexando = $this->indexarDocument($filepath);
+                    if($anexando['code'] !== 200){
+                        return response()->json($anexando['msg'],$anexando['code']);
+                    }
+                    continue;
+                }
+                closedir($dh);
+                clearstatcache();
+            }
+            return response()->json('Los archivos han sido procesados adecuadamente', 200);
+        } else {
+            return response()->json('Error con la ruta especificada', 400);
+        }
     }
 }

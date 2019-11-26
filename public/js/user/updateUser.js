@@ -10,7 +10,7 @@ let listUserState = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch('/accountState', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/accountState`, init).then(res => res.json()).then(data => {
         let cboAccountState = document.getElementById('accountState');
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
@@ -26,7 +26,7 @@ let listUserLevel = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch('/userLevel', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/userLevel`, init).then(res => res.json()).then(data => {
         let cboTypeLevel = document.getElementById('typeLevel');
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
@@ -45,7 +45,7 @@ let cargarCampos = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/user/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/user/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('code').value = data.code;
         document.getElementById('name').value = data.name;
         document.getElementById('email').value = data.email;
@@ -66,7 +66,7 @@ let updateUser = (e) => {
         body: frmData
     };
 
-    fetch(`/user/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/user/${id}`, init).then(res => res.json()).then(data => {
         let alertUserUpdate = document.getElementById('alertUserUpdate');
         let spnUserMessageUpdate = document.getElementById('userMessageUpdate');
         alertUserUpdate.style.display = 'block';

@@ -6,7 +6,7 @@ let listClient = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch('/client', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client`, init).then(res => res.json()).then(data => {
         let srchClient = document.getElementById('srchClient');
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
@@ -21,7 +21,7 @@ let listClient = () => {
 let listDocument = (ruta) => {
     frmSearchDocument.reset();
     let rutafetch;
-    ruta ? rutafetch = ruta : rutafetch = '/documentPaginate';
+    ruta ? rutafetch = ruta : rutafetch = `${appurl}/documentPaginate`;
     let init = {
         method: "get",
         mode: 'cors',
@@ -37,11 +37,11 @@ let listDocument = (ruta) => {
             fila.innerHTML += (`<td>${data.listDocumentPaginate.data[i].id_client.description}</td>`);
             fila.innerHTML += (`<td>${data.listDocumentPaginate.data[i].description}</td>`);
             if (data.userLevel === 1) {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.listDocumentPaginate.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.listDocumentPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/docview?id=${data.listDocumentPaginate.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="${appurl}/docedit?id=${data.listDocumentPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteDocument(this)"><i class="fa fa-trash"></i></button></td>`);
             } else {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.listDocumentPaginate.data[i].id}">
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/docview?id=${data.listDocumentPaginate.data[i].id}">
                                     <i class="fa fa-info"></i></a></td>`);
             }
 
@@ -74,7 +74,7 @@ let searchDocument = (e) => {
         method: 'post',
         body: frmData
     };
-    fetch('/searchDocument', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/searchDocument`, init).then(res => res.json()).then(data => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
@@ -85,11 +85,11 @@ let searchDocument = (e) => {
             fila.innerHTML += (`<td>${data.documents.data[i].id_client.description}</td>`);
             fila.innerHTML += (`<td>${data.documents.data[i].description}</td>`);
             if (data.userLevel === 1) {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.documents.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/docedit?id=${data.documents.data[i].id}"><i class="fa fa-edit"></i></a>
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/docview?id=${data.documents.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="${appurl}/docedit?id=${data.documents.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteDocument(this)"><i class="fa fa-trash"></i></button></td>`);
             } else {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/docview?id=${data.documents.data[i].id}"><i class="fa fa-info">
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/docview?id=${data.documents.data[i].id}"><i class="fa fa-info">
                                     </i></a></td>`);
             }
 
@@ -110,7 +110,7 @@ let deleteDocument = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/document/${idUser}`, init).then(res => {
+            fetch(`${appurl}/document/${idUser}`, init).then(res => {
                 if (!res.ok) {
                     let alertDocument = document.getElementById('alertDocument');
                     alertDocument.className = 'alert alert-danger alert-dismissible';

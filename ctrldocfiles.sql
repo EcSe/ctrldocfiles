@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `tb_main_document` (
   `period_start_date` date DEFAULT NULL,
   `period_finish_date` date DEFAULT NULL,
   `value` decimal(10,2) DEFAULT NULL,
+  `value1` decimal(10,2) DEFAULT NULL,
   `main_doc_id` int(11) DEFAULT NULL,
   `place_details_id` int(11) , -- ID lugar fisico donde se guardara la documentacion
   `place_details_obs` varchar(250) ,
@@ -214,4 +215,5 @@ INSERT IGNORE INTO `tb_account_state` (`id`, `description`, `value`) VALUES
 	(5, 'FACTURA'),
 	(6, 'COMPROBANTE'),
 	(7, 'CONFORMIDAD'),
-	(8, 'COFORMIDAD PARCIAL');
+	(8, 'COFORMIDAD PARCIAL'),
+  (9, 'CONTADOR');;

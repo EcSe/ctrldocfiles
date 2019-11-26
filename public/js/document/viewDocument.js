@@ -6,7 +6,7 @@ let viewDocument = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/document/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/document/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('tid').innerHTML = data.id;
         document.getElementById('ttipodoc').innerHTML = data.id_type.description;
         document.getElementById('tcliente').innerHTML = data.id_client.description;

@@ -4,7 +4,7 @@ let frmSearchUser = document.getElementById('frmSearchUser');
 let listUser = (ruta) => {
     frmSearchUser.reset();
     let rutafetch;
-    ruta ? rutafetch = ruta : rutafetch = '/userPaginate';
+    ruta ? rutafetch = ruta : rutafetch = `${appurl}/userPaginate`;
     let init = {
         method: "get",
         mode: 'cors',
@@ -22,12 +22,12 @@ let listUser = (ruta) => {
             fila.innerHTML += (`<td>${data.listUserPaginate.data[i].description}</td>`);
             fila.innerHTML += (`<td>${data.listUserPaginate.data[i].account_state.description}</td>`);
             if (data.userLevel === 1) {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.listUserPaginate.data[i].id}"><i class="fa fa-info"></i></a>
-                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.listUserPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/usrview?id=${data.listUserPaginate.data[i].id}"><i class="fa fa-info"></i></a>
+                <a title="Editar" class="btn btn-default" href="${appurl}/usredit?id=${data.listUserPaginate.data[i].id}"><i class="fa fa-edit"></i></a>
                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
 
             } else {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.listUserPaginate.data[i].id}">
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/usrview?id=${data.listUserPaginate.data[i].id}">
                                     <i class="fa fa-info"></i></a></td>`);
             }
             tbody.appendChild(fila);
@@ -59,7 +59,7 @@ let searchUser = (e) => {
         method: 'post',
         body: frmData
     };
-    fetch('/searchUser', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/searchUser`, init).then(res => res.json()).then(data => {
         while (tbody.firstChild) {
             tbody.removeChild(tbody.firstChild);
         }
@@ -72,12 +72,12 @@ let searchUser = (e) => {
             fila.innerHTML += (`<td>${data.users.data[i].description}</td>`);
             fila.innerHTML += (`<td>${data.users.data[i].account_state.description}</td>`);
             if (data.userLevel === 1) {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.users.data[i].id}"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/usredit?id=${data.users.data[i].id}"><i class="fa fa-edit"></i></a>
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/usrview?id=${data.users.data[i].id}"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="${appurl}/usredit?id=${data.users.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteUser(this)"><i class="fa fa-trash"></i></button></td>`);
 
             } else {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="/usrview?id=${data.users.data[i].id}">
+                fila.innerHTML += (`<td><a target="_self" title="Ver" class="btn btn-default" href="${appurl}/usrview?id=${data.users.data[i].id}">
                                     <i class="fa fa-info"></i></a></td>`);
 
             }
@@ -98,11 +98,7 @@ let deleteUser = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            // fetch(`/user/${idUser}`, init).then(res => res.json()).then(data => {
-            //     let row = e.parentNode.parentElement;
-            //     row.remove()
-            // });
-            fetch(`/user/${idUser}`, init).then(res => {
+            fetch(`${appurl}/user/${idUser}`, init).then(res => {
                 if (!res.ok) {
                     let alertUser = document.getElementById('alertUser');
                     alertUser.className = 'alert alert-danger alert-dismissible';

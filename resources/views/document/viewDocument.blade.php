@@ -76,7 +76,7 @@
             </div>
             <div class="box-body">
                 <object id="objectdocument" width="100%" height="600" type="application/pdf">
-                        <embed id="idocument"/>
+                    <embed id="idocument"  type="application/pdf" >
                 </object>
             </div>
         </div>

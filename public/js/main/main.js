@@ -4,10 +4,10 @@ let cargaMain = () => {
         mode: 'cors'
     };
     Promise.all([
-        fetch('/casefile', init).then(res => res.json()),
-        fetch('/user', init).then(res => res.json()),
-        fetch('/document', init).then(res => res.json()),
-        fetch('/disk', init).then(res => res.json())
+        fetch(`${appurl}/casefile`, init).then(res => res.json()),
+        fetch(`${appurl}/user`, init).then(res => res.json()),
+        fetch(`${appurl}/document`, init).then(res => res.json()),
+        fetch(`${appurl}/disk`, init).then(res => res.json())
     ]).then(matriz => {
         let data = matriz[0];
         let data1 = matriz[1];

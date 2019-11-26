@@ -10,7 +10,7 @@ let listClient = () => {
         method: 'GET',
         mode: 'cors'
     };
-    fetch(`/casefile/${idCasefile}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/casefile/${idCasefile}`, init).then(res => res.json()).then(data => {
         let option = document.createElement('option');
         option.value = data.id_client.id;
         option.text = data.id_client.description;
@@ -23,7 +23,7 @@ let listDocumentState = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentState', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/documentState`, init).then(res => res.json()).then(data => {
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -38,7 +38,7 @@ let listDocumentType = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/documentType', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/documentType`, init).then(res => res.json()).then(data => {
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -56,7 +56,7 @@ let addDocument = (e) => {
         method: 'POST',
         body: frmData
     }
-    fetch('/docuIntoCasefiles', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/docuIntoCasefiles`, init).then(res => res.json()).then(data => {
         frmDocument.reset();
         let alertCasefileDocumnet = document.getElementById('alertCasefileDocumnet');
         let spnCasefileDocumentMessage = document.getElementById('casefiledocumentMessage');

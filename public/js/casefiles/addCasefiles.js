@@ -8,7 +8,7 @@ let listClient = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/client', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client`, init).then(res => res.json()).then(data => {
         for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -23,7 +23,7 @@ let listTipo = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/casefileType', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/casefileType`, init).then(res => res.json()).then(data => {
         for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -38,7 +38,7 @@ let listState = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch('/casefileState', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/casefileState`, init).then(res => res.json()).then(data => {
         for (i = 0; i < data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
@@ -55,7 +55,7 @@ let addCasefile = (e) => {
         method: 'post',
         body: frmData
     };
-    fetch('/casefile', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/casefile`, init).then(res => res.json()).then(data => {
         frmCasefile.reset();
         let alertCasefile = document.getElementById('alertCasefile');
         let spnCasefileMessage = document.getElementById('casefileMessage');

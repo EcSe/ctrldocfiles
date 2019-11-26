@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\casefilesModel;
@@ -8,7 +7,8 @@ use App\Models\userModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class userController extends Controller
+
+class userController extends Controller 
 {
     public function login(Request $request)
     {

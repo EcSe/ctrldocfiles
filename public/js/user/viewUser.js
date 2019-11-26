@@ -6,7 +6,7 @@ let viewUser = () => {
         method: 'GET',
         mode: 'cors'
     }
-    fetch(`/user/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/user/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('tid').innerHTML = data.id;
         document.getElementById('tcodigo').innerHTML = data.code;
         document.getElementById('tnombre').innerHTML = data.name;

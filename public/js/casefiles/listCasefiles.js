@@ -6,7 +6,7 @@ let listClient = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch('/client', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client`, init).then(res => res.json()).then(data => {
         let srchClient = document.getElementById('srchClient');
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
@@ -20,7 +20,7 @@ let listClient = () => {
 let listCasefile = (ruta) => {
     frmSearchCasefile.reset();
     let rutafetch;
-    ruta ? rutafetch = ruta : rutafetch = '/casefilePaginate';
+    ruta ? rutafetch = ruta : rutafetch = `${appurl}/casefilePaginate`;
     let init = {
         method: 'GET',
         mode: 'cors'
@@ -37,11 +37,11 @@ let listCasefile = (ruta) => {
             fila.innerHTML += (`<td>${data.listCasefilePaginate.data[i].description}</td>`);
             fila.innerHTML += (`<td>${data.listCasefilePaginate.data[i].casefile_state.description}</td>`);
             if (data.userLevel === 1) {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.listCasefilePaginate.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.listCasefilePaginate.data[i].id}"><i class="fa fa-edit"></i></a>
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="${appurl}/casefileview?id=${data.listCasefilePaginate.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="${appurl}/casefileedit?id=${data.listCasefilePaginate.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteCasefile(this)"><i class="fa fa-trash"></i></button></td>`);
             } else {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.listCasefilePaginate.data[i].id}" class="btn btn-default">
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="${appurl}/casefileview?id=${data.listCasefilePaginate.data[i].id}" class="btn btn-default">
                                     <i class="fa fa-info"></i></a></td>`);
             }
 
@@ -74,7 +74,7 @@ let searchCasefile = (e) => {
         method: 'post',
         body: frmData
     };
-    fetch('/searchCasefiles', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/searchCasefiles`, init).then(res => res.json()).then(data => {
         while (tbodyCasefile.firstChild) {
             tbodyCasefile.removeChild(tbodyCasefile.firstChild);
         }
@@ -86,11 +86,11 @@ let searchCasefile = (e) => {
             fila.innerHTML += (`<td>${data.casefiles.data[i].description}</td>`);
             fila.innerHTML += (`<td>${data.casefiles.data[i].casefile_state.description}</td>`);
             if (data.userLevel === 1) {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.casefiles.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
-                                <a title="Editar" class="btn btn-default" href="/casefileedit?id=${data.casefiles.data[i].id}"><i class="fa fa-edit"></i></a>
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="${appurl}/casefileview?id=${data.casefiles.data[i].id}" class="btn btn-default"><i class="fa fa-info"></i></a>
+                                <a title="Editar" class="btn btn-default" href="${appurl}/casefileedit?id=${data.casefiles.data[i].id}"><i class="fa fa-edit"></i></a>
                                 <button title="Eliminar" class="btn btn-default" data-toggle="modal" data-target="#modal-danger" onclick="deleteCasefile(this)"><i class="fa fa-trash"></i></button></td>`);
             } else {
-                fila.innerHTML += (`<td><a target="_self" title="Ver" href="/casefileview?id=${data.casefiles.data[i].id}" class="btn btn-default">
+                fila.innerHTML += (`<td><a target="_self" title="Ver" href="${appurl}/casefileview?id=${data.casefiles.data[i].id}" class="btn btn-default">
                                     <i class="fa fa-info"></i></a></td>`);
             }
 
@@ -111,7 +111,7 @@ let deleteCasefile = (e) => {
     let btnModalDelete = document.getElementById('btnModalDelete');
     document.onclick = (event) => {
         if (event.target == btnModalDelete) {
-            fetch(`/casefile/${idUser}`, init).then(res => {
+            fetch(`${appurl}/casefile/${idUser}`, init).then(res => {
 
                 if (!res.ok) {
                     console.log(res);

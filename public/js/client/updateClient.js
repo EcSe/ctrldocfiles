@@ -10,7 +10,7 @@ let cargarCampos = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch(`/client/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client/${id}`, init).then(res => res.json()).then(data => {
         document.getElementById('cif').value = data.cif;
         document.getElementById('code').value = data.code;
         document.getElementById('description').value = data.description;
@@ -29,7 +29,7 @@ let updateClient = (e) => {
         method: "post",
         body: frmData
     };
-    fetch(`/client/${id}`, init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/client/${id}`, init).then(res => res.json()).then(data => {
         let alertClientUpdate = document.getElementById('alertClientUpdate');
         let spnClientMessageUpdate = document.getElementById('clientMessageUpdate');
         alertClientUpdate.style.display = 'block';
@@ -41,8 +41,7 @@ let updateClient = (e) => {
 };
 
 let back = () => {
-    //hrfBack.click();
-    location.href = "http://ctrldocfiles.com.devel/lc";
+    location.href = `${appurl}/lc`;
 };
 //#region Eventos
 frmUpdate.addEventListener('submit', (e) => {

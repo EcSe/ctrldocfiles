@@ -5,7 +5,7 @@ let listUserState = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch('/accountState', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/accountState`, init).then(res => res.json()).then(data => {
         let cboAccountState = document.getElementById('accountState');
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
@@ -21,7 +21,7 @@ let listUserLevel = () => {
         method: 'get',
         mode: 'cors'
     };
-    fetch('/userLevel', init).then(res => res.json()).then(data => {
+    fetch(`${appurl}/userLevel`, init).then(res => res.json()).then(data => {
         let cboTypeLevel = document.getElementById('typeLevel');
         for (let i = 0; i < data.length; i++) {
             let option = document.createElement('option');
@@ -39,7 +39,7 @@ let addUser = (e) => {
         method: "POST",
         body: frmData,
     }
-    fetch('/user', init).then(res => {
+    fetch(`${appurl}/user`, init).then(res => {
         if (!res.ok) {
             let alertUser = document.getElementById('alertUser');
             alertUser.className = 'alert alert-danger alert-dismissible';
