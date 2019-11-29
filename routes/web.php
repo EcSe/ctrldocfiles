@@ -94,7 +94,6 @@ Route::delete('/document/{id}', 'mainDocumentController@destroy');
 Route::post('/document/{id}', 'mainDocumentController@update');
 Route::post('/searchDocument', 'mainDocumentController@search');
 Route::get('/documentclient/{id}', 'mainDocumentController@listDocumentClient');
-
 Route::get('/indexdocument', 'mainDocumentController@pruebaScanDir');
 
 Route::get('/ad', function () {
