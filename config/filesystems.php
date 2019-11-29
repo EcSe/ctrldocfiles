@@ -57,7 +57,7 @@ return [
 
         'doc' => [
             'driver' => 'local',
-            'root' => '/Users/elvinsalinasespinoza/ArchivosPrueba',
+            'root' => '/Users/elvinsalinasespinoza/ArchivosPrueba', //cambiar en produccion
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

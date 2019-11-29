@@ -213,7 +213,7 @@ class mainDocumentController extends Controller
         $document->id_type = 9;
         $document->id_client = $client->id;
         $document->description = 'Documento de contador para ' . $client->description;
-        rename($fileRoute, '/Users/elvinsalinasespinoza/ArchivosPrueba/' . $filename);
+        rename($fileRoute, '/Users/elvinsalinasespinoza/ArchivosPrueba/' . $filename); //cambiarse en produccion
         $document->filename = $filename;
         $document->document_date = $dateFormat;
         $document->value = $copyBlack;

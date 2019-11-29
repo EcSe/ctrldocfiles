@@ -192,7 +192,8 @@ INSERT IGNORE INTO `tb_account_state` (`id`, `description`, `value`) VALUES
 	(5, 'FACTURA'),
 	(6, 'COMPROBANTE'),
 	(7, 'CONFORMIDAD'),
-	(8, 'COFORMIDAD PARCIAL');
+	(8, 'COFORMIDAD PARCIAL')
+  (9, 'CONTADORES');
 
   INSERT IGNORE INTO `tb_client_type` (`id`, `description`, `notes`) VALUES
 	(1, 'Empresa Unipersonal', NULL),
